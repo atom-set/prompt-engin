@@ -202,10 +202,6 @@ mypy src/
 
 本项目采用 [MIT 许可证](./LICENSE)。
 
-## 🙏 致谢
-
-本项目参考了 [cursor-rules](https://github.com/your-username/cursor-rules) 项目的设计思路和组织方式。
-
 ### 🤖 AI 生成说明
 
 本工程完全由 AI 全自动生成，包括：
@@ -222,9 +218,10 @@ mypy src/
 - [使用指南](./docs/guides/user-guide.md)
 - [API 文档](./docs/api/README.md)
 - [示例项目](./examples/README.md)
-- [AI 生成说明](./AI_GENERATED.md) - 了解本项目的 AI 生成过程
+- [AI 生成说明](./AI_GENERATED.md) 
+- 了解本项目的 AI 生成过程
 
 ---
 
-**最后更新**：2025-01-XX
+**最后更新**：2025-12-25
 

@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- 修复 `prompts/stages/common/mode/common/mode-common.md` 缺少概述部分的验证问题
+- 添加概述部分，使文件符合提示词格式规范
+
+### Added
+- 添加 `TEST_AND_SANITIZATION_REPORT.md` 自测和脱敏检查报告
+
 ## [0.2.0] - 2025-12-15
 
 ### Added
