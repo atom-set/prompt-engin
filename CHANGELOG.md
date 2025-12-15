@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- 添加 `PROMPTS_OVERVIEW.md` 提示词概述文档，包含所有提示词的详细描述和应用场景
+- 在 README.md 中添加提示词概述文档的链接，方便用户快速访问
+
 ### Fixed
 - 修复 `prompts/stages/common/mode/common/mode-common.md` 缺少概述部分的验证问题
 - 添加概述部分，使文件符合提示词格式规范
 
-### Added
+### Added (Previous)
 - 添加 `TEST_AND_SANITIZATION_REPORT.md` 自测和脱敏检查报告
 
 ## [0.2.0] - 2025-12-15

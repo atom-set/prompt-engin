@@ -20,6 +20,8 @@ Prompt Engine 是一个提示词结构化工程，旨在帮助开发者更好地
 - 🔧 **CLI 工具**：提供命令行接口，方便使用
 - 📚 **丰富文档**：完整的使用指南和示例
 
+> 📋 **提示词概述**：查看 [提示词概述文档](./PROMPTS_OVERVIEW.md) 了解所有提示词的描述和应用场景
+
 ## 🚀 快速开始
 
 ### 安装
@@ -218,8 +220,7 @@ mypy src/
 - [使用指南](./docs/guides/user-guide.md)
 - [API 文档](./docs/api/README.md)
 - [示例项目](./examples/README.md)
-- [AI 生成说明](./AI_GENERATED.md) 
-- 了解本项目的 AI 生成过程
+- [AI 生成说明](./AI_GENERATED.md) - 了解本项目的 AI 生成过程
 
 ---
 
