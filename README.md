@@ -56,11 +56,26 @@ pip install -e .
 # 查看所有可用的提示词模板
 python3 scripts/prompt-engine list
 
-# 合并所有提示词文件
+# 合并所有提示词文件（通用格式）
 python3 scripts/prompt-engine merge --all --output combined.md
 
-# 合并特定阶段的提示词
-python3 scripts/prompt-engine merge --stage common --output common.md
+# 生成 Cursor IDE 规则文件
+python3 scripts/prompt-engine merge --all --ide cursor --output .cursorrules
+
+# 生成 TRAE IDE 规则文件
+python3 scripts/prompt-engine merge --all --ide trae --output .traerules
+
+# 生成 Antigravity IDE 规则文件
+python3 scripts/prompt-engine merge --all --ide antigravity --output .antigravityrules
+
+# 同时生成 Cursor 和 TRAE IDE 规则文件
+python3 scripts/prompt-engine merge --all --ide both --output rules
+
+# 同时生成所有 IDE 规则文件（Cursor、TRAE、Antigravity）
+python3 scripts/prompt-engine merge --all --ide all --output rules
+
+# 合并特定阶段的提示词（Cursor IDE）
+python3 scripts/prompt-engine merge --stage common --ide cursor --output .cursorrules
 
 # 验证提示词格式
 python3 scripts/prompt-engine validate prompts/stages/common/
@@ -177,6 +192,83 @@ prompt-engine merge --stage development --output dev.md
 # 合并特定类型的提示词
 prompt-engine merge --type backend --output backend.md
 ```
+
+### IDE 适配支持
+
+Prompt Engine 支持生成适用于不同 AI 辅助 IDE 的规则文件：
+
+#### Cursor IDE 支持
+
+生成适用于 [Cursor IDE](https://cursor.sh/) 的 `.cursorrules` 文件：
+
+```bash
+# 生成完整的 Cursor 规则文件
+python3 scripts/prompt-engine merge --all --ide cursor --output .cursorrules
+
+# 生成特定阶段的 Cursor 规则文件
+python3 scripts/prompt-engine merge --stage common --ide cursor --output .cursorrules
+```
+
+生成的 `.cursorrules` 文件可以直接放在项目根目录，Cursor IDE 会自动识别并使用。
+
+#### TRAE IDE 支持
+
+生成适用于 [TRAE IDE](https://traeide.ai-kit.cn/) 的 `.traerules` 文件：
+
+```bash
+# 生成完整的 TRAE 规则文件
+python3 scripts/prompt-engine merge --all --ide trae --output .traerules
+
+# 生成特定阶段的 TRAE 规则文件
+python3 scripts/prompt-engine merge --stage common --ide trae --output .traerules
+```
+
+生成的 `.traerules` 文件可以直接放在项目根目录，TRAE IDE 会自动识别并使用。
+
+#### Antigravity IDE 支持
+
+生成适用于 [Antigravity IDE](https://antigravity.dev/) 的 `.antigravityrules` 文件：
+
+```bash
+# 生成完整的 Antigravity 规则文件
+python3 scripts/prompt-engine merge --all --ide antigravity --output .antigravityrules
+
+# 生成特定阶段的 Antigravity 规则文件
+python3 scripts/prompt-engine merge --stage common --ide antigravity --output .antigravityrules
+```
+
+生成的 `.antigravityrules` 文件可以直接放在项目根目录，Antigravity IDE 会自动识别并使用。
+
+#### 同时生成多个 IDE 规则文件
+
+如果需要同时支持多个 IDE，可以使用 `both` 或 `all` 选项：
+
+```bash
+# 同时生成 Cursor 和 TRAE IDE 规则文件
+python3 scripts/prompt-engine merge --all --ide both --output rules
+
+# 这会生成两个文件：
+# - rules.cursorrules
+# - rules.traerules
+
+# 同时生成所有 IDE 规则文件（Cursor、TRAE、Antigravity）
+python3 scripts/prompt-engine merge --all --ide all --output rules
+
+# 这会生成三个文件：
+# - rules.cursorrules
+# - rules.traerules
+# - rules.antigravityrules
+```
+
+#### IDE 格式说明
+
+- **cursor**：生成适用于 Cursor IDE 的规则文件（`.cursorrules`）
+- **trae**：生成适用于 TRAE IDE 的规则文件（`.traerules`）
+- **antigravity**：生成适用于 Antigravity IDE 的规则文件（`.antigravityrules`）
+- **both**：同时生成 Cursor 和 TRAE IDE 的规则文件
+- **all**：同时生成所有 IDE（Cursor、TRAE、Antigravity）的规则文件
+
+> 💡 **提示**：如果不指定 `--ide` 选项，将生成通用的 Markdown 格式文件，适用于任何场景。
 
 ## 🛠️ 开发
 

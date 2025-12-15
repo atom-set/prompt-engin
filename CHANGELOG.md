@@ -8,16 +8,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- 添加 IDE 适配支持功能，支持生成适用于不同 AI 辅助 IDE 的规则文件
+  - 支持生成 Cursor IDE 规则文件（`.cursorrules`）
+  - 支持生成 TRAE IDE 规则文件（`.traerules`）
+  - 支持生成 Antigravity IDE 规则文件（`.antigravityrules`）
+  - CLI 工具新增 `--ide` 选项，支持指定 IDE 格式（cursor/trae/antigravity/both/all）
+  - 支持同时生成多个 IDE 规则文件（`both` 选项生成 Cursor 和 TRAE，`all` 选项生成所有三个 IDE）
 - 添加 `docs/examples/todo-cli-vaildation/` 提示词规则验证项目，包含完整的验证方案和工具
   - 添加 `quick-start.md` 快速开始指南，5 分钟快速上手验证
   - 添加 `rule-validation-guide.md` 完整验证指南，包含所有验证场景和预期行为
   - 添加 `prompts-collection.md` 提问词集合，可直接复制使用
   - 添加 `README.md` 项目说明文档
-- 添加 `.cursorrules` 合并后的规则文件，方便在测试项目中使用
+- 添加 `.cursorrules`、`.traerules`、`.antigravityrules` 合并后的规则文件，方便在不同 IDE 中使用
 - 添加 `PROMPTS_OVERVIEW.md` 提示词概述文档，包含所有提示词的详细描述和应用场景
 - 在 README.md 中添加提示词概述文档的链接，方便用户快速访问
 
 ### Changed
+- 增强 `PromptMerger` 类，添加 `ide_format` 参数，支持生成不同 IDE 格式的文件头
+- 增强 `PromptMerger` 类，在合并时根据 IDE 类型动态替换文件引用（如 `.cursorrules` → `.traerules` 或 `.antigravityrules`）
+- 增强 CLI `merge` 命令，添加 `--ide` 选项，支持生成多种 IDE 规则文件
+- 更新 README.md，添加 IDE 适配支持章节，详细说明 Cursor、TRAE 和 Antigravity IDE 的使用方法
+- 增强 `prompts/stages/common/mode/common/mode-common.md`，添加"语言要求"章节，强制要求所有响应使用中文
 - 增强 `prompts/stages/common/mode/plan/tool-check.md` 工具调用检查机制，添加方案输出前置检查
 - 增强 `prompts/stages/common/mode/plan/solution-output.md` 方案输出机制，添加修改需求判断标准
 - 增强 `prompts/stages/common/mode/act/long-text-check.md` 长文本写入检查机制，明确执行时机

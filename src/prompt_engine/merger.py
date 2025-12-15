@@ -26,6 +26,7 @@ class PromptMerger:
         output_path: str,
         add_separators: bool = True,
         add_source_comments: bool = True,
+        ide_format: Optional[str] = None,
     ) -> str:
         """
         合并多个提示词文件。
@@ -35,6 +36,7 @@ class PromptMerger:
             output_path: 输出文件路径
             add_separators: 是否添加分隔线
             add_source_comments: 是否添加来源注释
+            ide_format: IDE 格式（cursor/trae），用于生成对应的文件头
 
         Returns:
             输出文件路径
@@ -43,9 +45,22 @@ class PromptMerger:
         output_file.parent.mkdir(parents=True, exist_ok=True)
 
         with open(output_file, "w", encoding="utf-8") as f:
-            # 写入文件头
-            f.write("# 合并的提示词文件\n")
-            f.write("# 本文件由多个提示词文件合并生成\n\n")
+            # 根据 IDE 格式写入不同的文件头
+            if ide_format == "cursor":
+                f.write("# 合并的提示词文件\n")
+                f.write("# 本文件由多个提示词文件合并生成\n")
+                f.write("# 适用于 Cursor IDE\n\n")
+            elif ide_format == "trae":
+                f.write("# 合并的提示词文件\n")
+                f.write("# 本文件由多个提示词文件合并生成\n")
+                f.write("# 适用于 TRAE IDE\n\n")
+            elif ide_format == "antigravity":
+                f.write("# 合并的提示词文件\n")
+                f.write("# 本文件由多个提示词文件合并生成\n")
+                f.write("# 适用于 Antigravity IDE\n\n")
+            else:
+                f.write("# 合并的提示词文件\n")
+                f.write("# 本文件由多个提示词文件合并生成\n\n")
 
             # 合并每个文件
             for prompt_file in prompt_files:
@@ -64,9 +79,22 @@ class PromptMerger:
                     f.write("# " + "=" * 75 + "\n")
                     f.write("\n")
 
-                # 写入文件内容
+                # 写入文件内容，并根据 IDE 格式替换文件引用
                 with open(full_path, "r", encoding="utf-8") as src:
-                    f.write(src.read())
+                    content = src.read()
+                    
+                    # 根据 IDE 格式替换文件引用
+                    if ide_format == "cursor":
+                        # Cursor IDE：保持 .cursorrules 不变
+                        pass
+                    elif ide_format == "trae":
+                        # TRAE IDE：将 .cursorrules 替换为 .traerules
+                        content = content.replace(".cursorrules", ".traerules")
+                    elif ide_format == "antigravity":
+                        # Antigravity IDE：将 .cursorrules 替换为 .antigravityrules
+                        content = content.replace(".cursorrules", ".antigravityrules")
+                    
+                    f.write(content)
 
                 # 添加空行分隔
                 if add_separators:
@@ -79,6 +107,7 @@ class PromptMerger:
         stage: str,
         output_path: str,
         recursive: bool = True,
+        ide_format: Optional[str] = None,
     ) -> str:
         """
         按阶段合并提示词。
@@ -87,6 +116,7 @@ class PromptMerger:
             stage: 阶段名称（如 common, development）
             output_path: 输出文件路径
             recursive: 是否递归查找子目录
+            ide_format: IDE 格式（cursor/trae）
 
         Returns:
             输出文件路径
@@ -103,13 +133,14 @@ class PromptMerger:
                 relative_path = file_path.relative_to(self.base_path)
                 prompt_files.append(str(relative_path))
 
-        return self.merge(prompt_files, output_path)
+        return self.merge(prompt_files, output_path, ide_format=ide_format)
 
     def merge_by_type(
         self,
         project_type: str,
         output_path: str,
         recursive: bool = True,
+        ide_format: Optional[str] = None,
     ) -> str:
         """
         按项目类型合并提示词。
@@ -118,6 +149,7 @@ class PromptMerger:
             project_type: 项目类型（如 frontend, backend）
             output_path: 输出文件路径
             recursive: 是否递归查找子目录
+            ide_format: IDE 格式（cursor/trae）
 
         Returns:
             输出文件路径
@@ -134,5 +166,5 @@ class PromptMerger:
                 relative_path = file_path.relative_to(self.base_path)
                 prompt_files.append(str(relative_path))
 
-        return self.merge(prompt_files, output_path)
+        return self.merge(prompt_files, output_path, ide_format=ide_format)
 

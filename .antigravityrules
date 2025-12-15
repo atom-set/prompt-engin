@@ -1,6 +1,6 @@
 # 合并的提示词文件
 # 本文件由多个提示词文件合并生成
-# 适用于 Cursor IDE
+# 适用于 Antigravity IDE
 
 
 # ===========================================================================
@@ -91,7 +91,7 @@
 
 ## 📖 使用说明
 
-- 所有模式规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有模式规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 - 规则文件按字母顺序合并，索引文件优先合并
 
@@ -132,7 +132,7 @@
 
 ## 📖 使用说明
 
-- 所有安全权限规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有安全权限规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -1953,7 +1953,7 @@ grep('<!-- .*: 待填充 -->', { path: 'file.md' });
   - ❌ 不说明问题，直接修正
   - ❌ 不返回 Plan 模式，在 Act 模式下直接修正方案
 - **规则文件修改的特殊处理**：
-  - 修改规则文件本身（如 `plan-act-mode.md`、`.cursorrules` 等）也必须遵循 Plan 模式
+  - 修改规则文件本身（如 `plan-act-mode.md`、`.antigravityrules` 等）也必须遵循 Plan 模式
   - 修改规则文件前，必须输出详细的修改方案和计划
   - 修改规则文件后，必须运行合并脚本更新主规则文件
   - 规则文件的修改具有更高的风险，需要特别谨慎
@@ -2402,7 +2402,7 @@ write("file.md", "> **创建时间**: 2025-12-01（本地时间）");
 
 ## 📖 使用说明
 
-- 所有模式通用规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有模式通用规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -2987,7 +2987,7 @@ write("file.md", "> **创建时间**: 2025-12-01（本地时间）");
 
 ## 📖 使用说明
 
-- 所有 Debug 模式规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有 Debug 模式规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -3695,7 +3695,7 @@ write("file.md", "> **创建时间**: 2025-12-01（本地时间）");
 
 ## 📖 使用说明
 
-- 所有代码规范规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有代码规范规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 - 规则文件按字母顺序合并，索引文件优先合并
 
@@ -4093,7 +4093,7 @@ function processData(data) {
 
 ## 📖 使用说明
 
-- 所有注释规范都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有注释规范都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -4145,7 +4145,7 @@ function processData(data) {
 
 ## 📖 使用说明
 
-- 所有错误处理规范都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有错误处理规范都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -5620,7 +5620,7 @@ createUser({
 
 ## 📖 使用说明
 
-- 所有函数设计规范都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有函数设计规范都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -5660,7 +5660,7 @@ createUser({
 
 ## 📖 使用说明
 
-- 所有命名规范都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有命名规范都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -5815,7 +5815,7 @@ const apiBaseUrl = 'https://api.example.com';  // 应使用全大写
 
 ## 📖 使用说明
 
-- 所有代码格式规范都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有代码格式规范都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -6304,7 +6304,7 @@ date '+%Y-%m-%d %H:%M:%S'
 
 ## 📖 使用说明
 
-- 所有文档规范规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有文档规范规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -6715,7 +6715,7 @@ jest.useRealTimers();
 ```
 .cursor-rules/
 ├── README.md                    # 说明文档
-├── .cursorrules                 # 规则文件
+├── .antigravityrules                 # 规则文件
 ├── assets/                      # 工具生成的产物目录
 │   ├── batch-logger/           # Mermaid 转换生成的图片
 │   └── project-name/           # 其他项目的图片资源
@@ -6872,7 +6872,7 @@ git commit -m "feat: 添加 Cursor AI 辅助开发工具"
 以下目录用于存放 AI 辅助开发相关的内容：
 
 1. **`.cursor-rules/`**：Cursor AI 配置和工具目录
-   - `.cursorrules` 规则文件
+   - `.antigravityrules` 规则文件
    - `utils/` AI 辅助工具目录
    - 工具说明文档
 
@@ -7056,7 +7056,7 @@ git commit -m "feat: 添加 Cursor AI 辅助开发工具"
 
 ## 📖 使用说明
 
-- 所有项目规范规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有项目规范规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
@@ -7096,7 +7096,7 @@ git commit -m "feat: 添加 Cursor AI 辅助开发工具"
 
 ## 📖 使用说明
 
-- 所有交互规范规则都通过合并脚本自动合并到 `.cursorrules` 文件中
+- 所有交互规范规则都通过合并脚本自动合并到 `.antigravityrules` 文件中
 - 索引文件（`index.md`）不会被合并，仅用于导航和说明
 
 
