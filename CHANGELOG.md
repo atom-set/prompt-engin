@@ -8,8 +8,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- 添加 `docs/examples/todo-cli-vaildation/` 提示词规则验证项目，包含完整的验证方案和工具
+  - 添加 `quick-start.md` 快速开始指南，5 分钟快速上手验证
+  - 添加 `rule-validation-guide.md` 完整验证指南，包含所有验证场景和预期行为
+  - 添加 `prompts-collection.md` 提问词集合，可直接复制使用
+  - 添加 `README.md` 项目说明文档
+- 添加 `.cursorrules` 合并后的规则文件，方便在测试项目中使用
 - 添加 `PROMPTS_OVERVIEW.md` 提示词概述文档，包含所有提示词的详细描述和应用场景
 - 在 README.md 中添加提示词概述文档的链接，方便用户快速访问
+
+### Changed
+- 增强 `prompts/stages/common/mode/plan/tool-check.md` 工具调用检查机制，添加方案输出前置检查
+- 增强 `prompts/stages/common/mode/plan/solution-output.md` 方案输出机制，添加修改需求判断标准
+- 增强 `prompts/stages/common/mode/act/long-text-check.md` 长文本写入检查机制，明确执行时机
+- 增强 `prompts/stages/common/mode/security/security-permissions.md` 安全权限规则，完善规则优先级说明
+- 更新 README.md，添加验证项目说明和使用指南
+- 更新 `pyproject.toml`，完善项目配置
 
 ### Fixed
 - 修复 `prompts/stages/common/mode/common/mode-common.md` 缺少概述部分的验证问题

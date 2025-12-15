@@ -5,14 +5,52 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "prompt-engine"
 version = "0.2.0"
-description = "A structured prompt engineering tool for organizing and managing prompts"
+description = "A structured prompt engineering tool for organizing, managing, and reusing prompts"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
     {name = "Prompt Engine Contributors"}
 ]
-keywords = ["prompt", "engineering", "ai", "llm", "template"]
+keywords = [
+    # 核心关键字：提示词（重点突出）
+    "prompt",
+    "prompt-engineering",
+    "prompt-template",
+    "prompt-management",
+    "prompt-library",
+    "prompt-optimization",
+    "prompt-versioning",
+    "prompt-validation",
+    "prompts",
+    # AI 相关
+    "ai",
+    "ai-assistant",
+    "ai-tools",
+    "ai-development",
+    "ai-generated",
+    "llm",
+    "chatgpt",
+    "claude",
+    "cursor",
+    # 规则相关（辅助）
+    "rules",
+    "rule-engine",
+    "rule-management",
+    "cursor-rules",
+    # 工程和工具
+    "engineering",
+    "template",
+    "template-engine",
+    "developer-tools",
+    "software-engineering",
+    "automation",
+    # 技术栈
+    "python",
+    "cli-tool",
+    "markdown",
+    "yaml",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -24,6 +62,10 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Text Processing",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Version Control",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Utilities",
 ]
 
 dependencies = [
