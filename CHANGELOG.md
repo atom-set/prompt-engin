@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 增强 `prompts/stages/common/mode/security/security-permissions.md` 安全权限规则，完善规则优先级说明
 - 更新 README.md，添加验证项目说明和使用指南
 - 更新 `pyproject.toml`，完善项目配置
+- 增强 `PROMPTS_OVERVIEW.md` 提示词概述文档，为部分重要提示词规则添加"如何提问"部分，指导用户如何提问才能有效命中相应的提示词规则
 
 ### Fixed
 - 修复 `prompts/stages/common/mode/common/mode-common.md` 缺少概述部分的验证问题
