@@ -29,8 +29,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 增强 CLI `merge` 命令，添加 `--ide` 选项，支持生成多种 IDE 规则文件
 - 更新 README.md，添加 IDE 适配支持章节，详细说明 Cursor、TRAE 和 Antigravity IDE 的使用方法
 - 增强 `prompts/stages/common/mode/common/mode-common.md`，添加"语言要求"章节，强制要求所有响应使用中文
+- 增强 `prompts/stages/common/code/problem-location/problem-location.md` 问题定位规范，添加"问题分析阶段的约束"：
+  - 明确要求：在问题分析阶段，只添加日志，不要修改代码逻辑，也不要添加防御性代码
+  - 明确允许的操作：添加日志输出、临时变量、注释、断点
+  - 明确禁止的操作：禁止修改代码逻辑、禁止添加防御性代码、禁止修改业务逻辑、禁止添加修复代码
+- 增强 `prompts/stages/common/mode/plan/solution-output.md` 方案输出机制：
+  - 在修改方案部分添加"设计原则"强制要求，必须优先考虑最简单的设计方案
+  - 要求复杂方案必须明确说明使用场景和理由
+  - 要求必须对比简单方案和复杂方案，说明选择理由
+  - 禁止因为"未来可能需要"而采用复杂方案
 - 增强 `prompts/stages/common/mode/plan/tool-check.md` 工具调用检查机制，添加方案输出前置检查
-- 增强 `prompts/stages/common/mode/plan/solution-output.md` 方案输出机制，添加修改需求判断标准
 - 增强 `prompts/stages/common/mode/act/long-text-check.md` 长文本写入检查机制，明确执行时机
 - 增强 `prompts/stages/common/mode/security/security-permissions.md` 安全权限规则，完善规则优先级说明
 - 更新 README.md，添加验证项目说明和使用指南
