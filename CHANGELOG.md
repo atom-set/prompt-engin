@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 添加 `.cursorrules`、`.traerules`、`.antigravityrules` 合并后的规则文件，方便在不同 IDE 中使用
 - 添加 `PROMPTS_OVERVIEW.md` 提示词概述文档，包含所有提示词的详细描述和应用场景
 - 在 README.md 中添加提示词概述文档的链接，方便用户快速访问
+- 添加 `prompts/OPTIMIZATION_PLAN.md` 和 `prompts/OPTIMIZATION_SUMMARY.md` 优化方案和总结文档
 
 ### Changed
 - 增强 `PromptMerger` 类，添加 `ide_format` 参数，支持生成不同 IDE 格式的文件头
@@ -39,11 +40,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 要求必须对比简单方案和复杂方案，说明选择理由
   - 禁止因为"未来可能需要"而采用复杂方案
 - 增强 `prompts/stages/common/mode/plan/tool-check.md` 工具调用检查机制，添加方案输出前置检查
-- 增强 `prompts/stages/common/mode/act/long-text-check.md` 长文本写入检查机制，明确执行时机
+- 整合 `prompts/stages/common/mode/act/long-text-check.md` 到 `file-write.md`，文件大小检查作为写入前的第一步
 - 增强 `prompts/stages/common/mode/security/security-permissions.md` 安全权限规则，完善规则优先级说明
 - 更新 README.md，添加验证项目说明和使用指南
 - 更新 `pyproject.toml`，完善项目配置
 - 增强 `PROMPTS_OVERVIEW.md` 提示词概述文档，为部分重要提示词规则添加"如何提问"部分，指导用户如何提问才能有效命中相应的提示词规则
+- **优化和整合提示词规则**（2025-12-19）：
+  - 整合文件写入规则：将 `long-text-check.md` 整合到 `file-write.md`，文件大小检查作为写入前的第一步，提供完整的文件写入流程（检查大小 → 选择策略 → 写入框架 → 填充内容 → 验证）
+  - 优化时间相关规则：在 `time-check.md` 中引用 `time-format.md`，减少重复内容，明确职责边界（通用规范 vs 检查流程）
+  - 明确文档阶段规范主次关系：`document-generation.md` 作为整合版推荐优先使用（⭐⭐⭐），`architecture-diagram-template.md` 和 `wiki-output.md` 作为快速参考（⭐⭐）
+  - 重组 `PROMPTS_OVERVIEW.md` 模式规则分类方式：从按 Plan/Act/Debug 模式分类改为按功能/使用场景分类（方案输出和计划、代码执行和文件操作、调试和问题定位、模式切换和响应格式、工具调用和安全检查），使文档更直观
+  - 更新 `prompts/README.md`：添加详细的目录结构说明和文档生成规范章节
+  - 更新相关索引文件：`mode/act/index.md`、`documentation/README.md` 等
+
+### Removed
+- 删除 `prompts/stages/common/mode/act/long-text-check.md`（已整合到 `file-write.md`）
 
 ### Fixed
 - 修复 `prompts/stages/common/mode/common/mode-common.md` 缺少概述部分的验证问题
