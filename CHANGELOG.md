@@ -8,6 +8,81 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **规则架构顶层重构**（2025-12-19）：
+  - 创建 `prompts/stages/common/mode/tool-permission-system.md`：工具权限系统顶层规则文件
+    - 定义工具分类体系（只读工具 vs 修改工具）
+    - 定义统一检查流程（3步简化版）
+    - 定义强制触发机制（在响应生成流程中强制插入检查步骤）
+  - 重构 `prompts/stages/common/mode/plan/tool-check.md`：简化检查流程
+    - 从 5 步简化为 3 步（工具分类判断 → 权限检查 → 方案完整性检查）
+    - 添加命令内容检查机制（`run_terminal_cmd` 必须检查命令内容）
+    - 引用工具权限系统顶层规则
+  - 重构 `prompts/stages/common/mode/common/mode-common.md`：移除 Debug 模式，添加强制触发机制
+    - 移除所有 Debug 模式相关流程和检查
+    - 在响应生成流程中强制插入"意图识别和方案输出检查"步骤
+    - 简化响应生成流程（从 5 步简化为 4 步）
+  - 更新 `prompts/stages/common/mode/plan/solution-output.md`：整合到新架构
+    - 添加对工具权限系统和强制触发机制的引用
+  - 更新 `prompts/stages/common/mode/security/security-permissions.md`：移除 Debug 模式
+    - 移除所有 Debug 模式相关权限说明
+    - 更新工具权限分类，引用工具权限系统
+  - 更新 `prompts/stages/common/mode/index.md`：移除 Debug 模式规则索引
+    - 添加工具权限系统模块说明
+    - 更新依赖关系
+
+### Removed
+- **移除 Debug 模式**（2025-12-19）：
+  - 删除 `prompts/stages/common/mode/debug/debug-mode.md`
+  - 删除 `prompts/stages/common/mode/debug/index.md`
+  - 移除所有规则文件中的 Debug 模式相关内容和引用
+- **简化架构，移除重复文件**（2025-12-19）：
+  - 删除 `prompts/stages/common/mode/plan/tool-check.md`（已整合到 `tool-permission-system.md`）
+  - 删除 `prompts/stages/common/mode/plan/forbidden-behaviors.md`（已整合到 `tool-permission-system.md`）
+  - 删除 `prompts/stages/common/mode/plan/solution-completeness.md`（已整合到 `solution-output.md`）
+
+### Changed
+- **完善意图识别机制**（2025-12-19）：
+  - 重构 `prompts/stages/common/mode/tool-permission-system.md`：完善意图识别失败时的安全机制
+    - 将意图识别整合为检查流程第零步（在工具分类判断之前）
+    - 检查流程从 3 步扩展为 4 步（第零步：意图识别检查）
+    - 量化触发条件的判断标准（明确何时触发安全机制）
+    - 明确误判检测机制（基于用户反馈检测误判）
+    - 明确询问机制的执行时机和方式（在响应生成时询问）
+    - 明确模式切换时机（检测到失败时立即切换）
+    - 明确与方案输出的关系（失败时作废方案）
+    - **添加强制确认机制**（2025-12-19）：
+      - 意图识别失败时，必须与用户确认（不能跳过）
+      - 定义标准确认格式（提供明确选项，至少 3 个选项）
+      - 明确确认时机、确认方式、确认内容
+      - 明确回复判断逻辑（根据用户选择执行对应流程）
+      - 明确确认后的处理流程（重新识别 → 从第零步重新开始）
+      - 添加重新识别次数限制（最多 2 次，避免无限循环）
+    - **优化询问机制和确认机制**（2025-12-19）：
+      - 统一询问机制格式（与确认机制保持一致，可使用简化版本）
+      - 为询问机制添加推荐格式（与确认机制保持一致）
+      - 明确确认后的完整流程（重新识别成功/失败的处理方式）
+      - 完善检查结果说明（明确确认后的处理流程）
+      - 优化询问机制和确认机制的关系说明（明确两者的区别和联系）
+      - 在错误处理部分添加确认后的处理流程说明
+- **规则架构顶层重构**（2025-12-19）：
+  - 重构 `prompts/stages/common/mode/tool-permission-system.md`：整合所有检查机制
+    - 整合工具调用检查机制（从 `tool-check.md`）
+    - 整合禁止行为清单（从 `forbidden-behaviors.md`）
+    - 整合意图识别和方案输出机制
+    - 成为工具调用检查的唯一入口
+  - 重构 `prompts/stages/common/mode/common/mode-common.md`：简化响应生成流程
+    - 移除意图识别和方案输出检查步骤（在工具调用时执行）
+    - 简化响应生成流程（从 4 步简化为 3 步）
+  - 重构 `prompts/stages/common/mode/plan/solution-output.md`：聚焦方案输出内容
+    - 移除意图识别机制（已整合到 `tool-permission-system.md`）
+    - 整合方案完整性判断标准（从 `solution-completeness.md`）
+    - 聚焦方案输出的内容要求（5个部分的具体格式）
+  - 重构 `prompts/stages/common/mode/security/security-permissions.md`：移除重复检查流程
+    - 移除详细的检查流程定义（只保留快速参考）
+    - 引用 `tool-permission-system.md` 作为详细说明
+    - 同步检查清单，与 `tool-permission-system.md` 保持一致
+    - 更新文件头部的更新时间说明
+- **规则架构简化重构**（2025-12-19）：
 - 添加 IDE 适配支持功能，支持生成适用于不同 AI 辅助 IDE 的规则文件
   - 支持生成 Cursor IDE 规则文件（`.cursorrules`）
   - 支持生成 TRAE IDE 规则文件（`.traerules`）
@@ -50,11 +125,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 整合文件写入规则：将 `long-text-check.md` 整合到 `file-write.md`，文件大小检查作为写入前的第一步，提供完整的文件写入流程（检查大小 → 选择策略 → 写入框架 → 填充内容 → 验证）
   - 优化时间相关规则：在 `time-check.md` 中引用 `time-format.md`，减少重复内容，明确职责边界（通用规范 vs 检查流程）
   - 明确文档阶段规范主次关系：`document-generation.md` 作为整合版推荐优先使用（⭐⭐⭐），`architecture-diagram-template.md` 和 `wiki-output.md` 作为快速参考（⭐⭐）
-  - 重组 `PROMPTS_OVERVIEW.md` 模式规则分类方式：从按 Plan/Act/Debug 模式分类改为按功能/使用场景分类（方案输出和计划、代码执行和文件操作、调试和问题定位、模式切换和响应格式、工具调用和安全检查），使文档更直观
+  - 重组 `PROMPTS_OVERVIEW.md` 模式规则分类方式：从按 Plan/Act/Debug 模式分类改为按功能/使用场景分类（方案输出和计划、代码执行和文件操作、模式切换和响应格式、工具调用和安全检查），使文档更直观
+  - 更新 `PROMPTS_OVERVIEW.md` 反映最新架构变更（2025-12-19）：
+    - 替换 `tool-check.md` 和 `forbidden-behaviors.md` 的描述为 `tool-permission-system.md`（工具权限系统）
+    - 删除 `solution-completeness.md` 的独立描述（已整合到 `solution-output.md`）
+    - 删除 `long-text-check.md` 的独立描述（已整合到 `file-write.md`）
+    - 删除 Debug 模式的描述（已移除）
+    - 添加 `tool-permission-system.md` 的详细描述，包括工具分类体系、4 步检查流程、意图识别机制、强制确认机制等
+    - 更新统计信息：总文件数从 63 更新为 60，模式规则文件数从 16 更新为 13
+    - 更新更新日志，添加规则架构顶层重构和意图识别机制完善的详细说明
   - 更新 `prompts/README.md`：添加详细的目录结构说明和文档生成规范章节
   - 更新相关索引文件：`mode/act/index.md`、`documentation/README.md` 等
-  - 添加技术方案文档模板：`templates/technical-solution-template.md`，包含完整模板和 AI 使用提示词
-  - 添加文档生成规范整合版：`stages/documentation/document-generation.md`，整合所有文档类型的规范
   - 添加技术方案文档模板：`templates/technical-solution-template.md`，包含完整模板和 AI 使用提示词
   - 添加文档生成规范整合版：`stages/documentation/document-generation.md`，整合所有文档类型的规范
 
