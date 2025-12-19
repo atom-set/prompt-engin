@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 添加 `PROMPTS_OVERVIEW.md` 提示词概述文档，包含所有提示词的详细描述和应用场景
 - 在 README.md 中添加提示词概述文档的链接，方便用户快速访问
 - 添加 `prompts/OPTIMIZATION_PLAN.md` 和 `prompts/OPTIMIZATION_SUMMARY.md` 优化方案和总结文档
+- 添加 `rules.antigravityrules`、`rules.cursorrules`、`rules.traerules` 规则文件到版本控制
 
 ### Changed
 - 增强 `PromptMerger` 类，添加 `ide_format` 参数，支持生成不同 IDE 格式的文件头
@@ -52,6 +53,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 重组 `PROMPTS_OVERVIEW.md` 模式规则分类方式：从按 Plan/Act/Debug 模式分类改为按功能/使用场景分类（方案输出和计划、代码执行和文件操作、调试和问题定位、模式切换和响应格式、工具调用和安全检查），使文档更直观
   - 更新 `prompts/README.md`：添加详细的目录结构说明和文档生成规范章节
   - 更新相关索引文件：`mode/act/index.md`、`documentation/README.md` 等
+  - 添加技术方案文档模板：`templates/technical-solution-template.md`，包含完整模板和 AI 使用提示词
+  - 添加文档生成规范整合版：`stages/documentation/document-generation.md`，整合所有文档类型的规范
+  - 添加技术方案文档模板：`templates/technical-solution-template.md`，包含完整模板和 AI 使用提示词
+  - 添加文档生成规范整合版：`stages/documentation/document-generation.md`，整合所有文档类型的规范
 
 ### Removed
 - 删除 `prompts/stages/common/mode/act/long-text-check.md`（已整合到 `file-write.md`）
@@ -89,7 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 添加 AI 生成说明到多个文档
 - 更新 prompts/README.md 说明所有提示词由 AI 生成
 
-## [0.1.0] - 2025-01-XX
+## [0.1.0] - 2025-12-01
 
 ### Added
 - 项目初始化
