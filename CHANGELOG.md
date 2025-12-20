@@ -7,6 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **重点推荐方式2（精简版规则文件 + 技能系统）**（2025-12-20）：
+  - 调整所有文档顺序，将方式2（精简版规则文件 + 技能系统）放在方式1之前
+  - 更新推荐说明，重点推荐方式2，添加星号（⭐）和"重点推荐"标识
+  - 更新选择建议：所有项目（推荐）→ 使用方式2
+  - 更新的文档：
+    - `README.md`：技能系统部分重点推荐方式2
+    - `QUICK_START.md`：调整推荐顺序
+    - `docs/guides/skills-usage-guide.md`：调整推荐说明和顺序
+    - `docs/guides/token-optimization-guide.md`：调整推荐说明和顺序
+    - `docs/guides/QUICK_START_SKILLS.md`：调整推荐说明和顺序
+    - `docs/guides/USAGE_EXAMPLE.md`：调整示例顺序
+  - **推荐理由**：
+    - Token 占用减少约 60%（从 8597 行减少到 3427 行）
+    - 按需加载，灵活配置
+    - 推荐用于所有项目，特别是大项目
+
+### Removed
+- **删除无用文档**（2025-12-20）：
+  - 删除 `docs/guides/user-guide.md`：与 README.md 和 QUICK_START.md 内容重复
+  - 删除 `prompts/OPTIMIZATION_PLAN.md` 和 `prompts/OPTIMIZATION_SUMMARY.md`：优化方案文档已整合
+  - 删除 `TEST_AND_SANITIZATION_REPORT.md`：测试报告文档
+  - 删除临时文件：`combined.md`、`common.md`
+
+### Fixed
+- **修复文档引用**（2025-12-20）：
+  - 修复不存在的文档引用：`skill-capability-sync-plan-2025-12-20.md`
+  - 更新所有对 `user-guide.md` 的引用，指向 `QUICK_START.md`
+  - 更新的文件：
+    - `README.md`：更新文档引用
+    - `PROMPTS_OVERVIEW.md`：更新文档引用
+    - `prompts/README.md`：更新文档引用
+    - `docs/examples/todo-cli-vaildation/README.md`：更新文档引用
+    - `PROJECT_SETUP.md`：更新文档引用
+    - `CHANGELOG.md`：更新技能系统实施方案说明
+    - `docs/guides/skills-usage-guide.md`：更新相关文档链接
+    - `docs/guides/QUICK_START_SKILLS.md`：更新相关文档链接
+    - `docs/guides/token-optimization-guide.md`：更新相关文档链接
+    - `docs/guides/SKILLS_CREATION.md`：更新相关文档链接
+
 ### Added
 - **技能系统（Skills）支持**（2025-12-20）：
   - 添加技能系统支持，实现 Token 优化和按需加载
