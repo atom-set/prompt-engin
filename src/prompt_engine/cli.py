@@ -38,6 +38,7 @@ def cli(ctx, base_path):
 @click.option("--stage", help="按阶段合并（如 common, development）")
 @click.option("--type", help="按类型合并（如 frontend, backend）")
 @click.option("--all", "-a", is_flag=True, help="合并所有提示词（所有阶段和类型）")
+@click.option("--core-only", is_flag=True, help="只合并核心规则文件（用于 Token 优化）")
 @click.option(
     "--ide",
     type=click.Choice(["cursor", "trae", "antigravity", "both", "all"], case_sensitive=False),
@@ -45,7 +46,7 @@ def cli(ctx, base_path):
 )
 @click.argument("files", nargs=-1, type=click.Path(exists=True))
 @click.pass_context
-def merge(ctx, output, stage, type, all, files, ide):
+def merge(ctx, output, stage, type, all, files, ide, core_only):
     """合并提示词文件"""
     base_path = ctx.obj["base_path"]
     merger = PromptMerger(base_path)
@@ -65,30 +66,47 @@ def merge(ctx, output, stage, type, all, files, ide):
         ide_lower = ide.lower()
         if ide_lower == "cursor":
             ide_format = "cursor"
-            if output == "merged.md" or not output.endswith(tuple(ide_extensions.values())):
-                # 如果输出文件名不是 .cursorrules，则自动改为 .cursorrules
-                if output.endswith(".md"):
-                    output = output[:-3] + ".cursorrules"
-                elif not output.endswith(".cursorrules"):
-                    output = output + ".cursorrules"
+            if output == "merged.md":
+                # 默认文件名，自动改为 .cursorrules
+                output = "merged.cursorrules"
+            elif output.endswith(".cursorrules"):
+                # 如果已经以 .cursorrules 结尾，保持原样
+                pass
+            elif ".cursorrules" in output:
+                # 如果文件名中已经包含 .cursorrules（如 .cursorrules.core），保持原样
+                pass
+            elif output.endswith(".md"):
+                # 如果以 .md 结尾，替换为 .cursorrules
+                output = output[:-3] + ".cursorrules"
+            else:
+                # 其他情况，添加 .cursorrules
+                output = output + ".cursorrules"
             output_files.append((output, "cursor"))
         elif ide_lower == "trae":
             ide_format = "trae"
-            if output == "merged.md" or not output.endswith(tuple(ide_extensions.values())):
+            if output == "merged.md":
+                # 默认文件名，自动改为 .traerules
+                output = "merged.traerules"
+            elif not output.endswith(".traerules"):
                 # 如果输出文件名不是 .traerules，则自动改为 .traerules
                 if output.endswith(".md"):
                     output = output[:-3] + ".traerules"
-                elif not output.endswith(".traerules"):
+                else:
                     output = output + ".traerules"
+            # 如果已经以 .traerules 结尾，保持原样
             output_files.append((output, "trae"))
         elif ide_lower == "antigravity":
             ide_format = "antigravity"
-            if output == "merged.md" or not output.endswith(tuple(ide_extensions.values())):
+            if output == "merged.md":
+                # 默认文件名，自动改为 .antigravityrules
+                output = "merged.antigravityrules"
+            elif not output.endswith(".antigravityrules"):
                 # 如果输出文件名不是 .antigravityrules，则自动改为 .antigravityrules
                 if output.endswith(".md"):
                     output = output[:-3] + ".antigravityrules"
-                elif not output.endswith(".antigravityrules"):
+                else:
                     output = output + ".antigravityrules"
+            # 如果已经以 .antigravityrules 结尾，保持原样
             output_files.append((output, "antigravity"))
         elif ide_lower == "both":
             # 同时生成 cursor 和 trae 两个文件
@@ -116,7 +134,11 @@ def merge(ctx, output, stage, type, all, files, ide):
     try:
         # 处理每个输出文件
         for output_file_path, format_type in output_files:
-            if all:
+            if core_only:
+                # 只合并核心规则文件
+                result_file = merger.merge_core_only(output_file_path, ide_format=format_type)
+                click.echo(f"✓ 已合并核心规则文件到: {result_file}")
+            elif all:
                 # 合并所有提示词：先合并所有阶段，再合并所有类型
                 import tempfile
                 import os
@@ -170,6 +192,7 @@ def merge(ctx, output, stage, type, all, files, ide):
                 click.echo("", err=True)
                 click.echo("可用选项:", err=True)
                 click.echo("  --all, -a          合并所有提示词", err=True)
+                click.echo("  --core-only        只合并核心规则文件（用于 Token 优化）", err=True)
                 click.echo("  --stage STAGE      按阶段合并（如: common, development）", err=True)
                 click.echo("  --type TYPE        按类型合并（如: frontend, backend）", err=True)
                 click.echo("  --ide IDE          指定 IDE 格式（cursor/trae/antigravity/both/all）", err=True)
@@ -178,6 +201,7 @@ def merge(ctx, output, stage, type, all, files, ide):
                 click.echo("示例:", err=True)
                 click.echo("  prompt-engine merge --all --output combined.md", err=True)
                 click.echo("  prompt-engine merge --all --ide cursor --output .cursorrules", err=True)
+                click.echo("  prompt-engine merge --core-only --ide cursor --output .cursorrules", err=True)
                 click.echo("  prompt-engine merge --all --ide trae --output .traerules", err=True)
                 click.echo("  prompt-engine merge --all --ide antigravity --output .antigravityrules", err=True)
                 click.echo("  prompt-engine merge --all --ide both --output rules", err=True)

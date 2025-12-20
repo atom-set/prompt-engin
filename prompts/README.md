@@ -107,5 +107,5 @@
 
 - [项目 README](../README.md)
 - [AI 生成说明](../AI_GENERATED.md)
-- [使用指南](../docs/guides/user-guide.md)
+- [快速开始指南](../../QUICK_START.md) - 快速开始使用
 

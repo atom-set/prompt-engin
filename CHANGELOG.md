@@ -8,6 +8,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **技能系统（Skills）支持**（2025-12-20）：
+  - 添加技能系统支持，实现 Token 优化和按需加载
+  - 创建 `AGENTS.md` 文件：技能列表定义文件
+  - 创建 `scripts/skills_sync/sync_skill.py`：技能同步脚本
+  - 创建 `scripts/utils/convert_rule_to_skill.py`：规则转技能工具
+  - 创建 `docs/guides/token-optimization-guide.md`：Token 优化指南
+  - 创建 `docs/guides/skills-usage-guide.md`：技能使用指南
+  - 技能系统实施方案：完整的实施方案已整合到相关指南文档中
+  - 创建 `docs/guides/SKILLS_CREATION.md`：技能创建指南
+  - 创建 `docs/guides/SKILLS_QUICK_REFERENCE.md`：技能系统快速参考
+  - 创建 `docs/guides/SKILLS_LIST.md`：技能列表文档
+  - 更新 `README.md`：添加技能系统说明和使用指南
+  - 实现 `--core-only` 选项：支持生成精简版规则文件
+  - **Token 优化效果**：
+    - 初始上下文 token 减少约 60%（从 8597 行减少到 3427 行）
+    - 支持按需加载可选规则（转换为技能）
+    - 同时支持完整版和精简版规则文件两种方式
+  - **规则分类**：
+    - 核心规则（~3427 行）：保留在 `.cursorrules` 中，必须全局生效
+    - 可选规则（~3770 行）：转换为技能，按需加载
+  - **技能创建**：
+    - 已创建 16 个技能（第一批 7 个 + 第二批 9 个）
+    - 第一批（P0-P1）：`document-format`、`time-format`、`code-organization`、`problem-location`、`design-principles`、`wiki-output`、`document-generation`
+    - 第二批（P2）：`project-clean-principle`、`architecture-diagram-template`、`open-question-confirmation`、`modular-output`、`exception-handling`、`compatibility-check`、`file-reading`、`phase-implementation`、`time-check`
+  - **批量安装脚本**：
+    - 创建 `scripts/utils/install_all_skills.sh`：支持批量安装技能
+    - 创建 `docs/guides/BATCH_INSTALL_GUIDE.md`：批量安装指南
+    - 创建 `docs/guides/TROUBLESHOOTING.md`：故障排查指南
+    - **功能特性**：
+      - 支持全选安装（选项 1）：一次性安装所有技能
+      - 支持选择性安装（选项 2）：交互式选择要安装的技能（输入技能编号，如：`1,3,5`）
+      - 显示安装进度和结果统计
+      - 详细的错误提示和故障排查链接
+    - 支持批量安装技能，然后通过 `openskills sync -y` 选择使用哪些技能
+  - **使用方式**：
+    - 方式1：完整版规则文件（简单直接，复制即用）
+    - 方式2：精简版规则文件 + 技能系统（Token 优化，按需加载）
 - **规则架构顶层重构**（2025-12-19）：
   - 创建 `prompts/stages/common/mode/tool-permission-system.md`：工具权限系统顶层规则文件
     - 定义工具分类体系（只读工具 vs 修改工具）

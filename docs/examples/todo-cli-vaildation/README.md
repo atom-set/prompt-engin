@@ -79,7 +79,7 @@ cp /path/to/prompt-engin/.cursorrules .
 
 - [项目 README](../../README.md)
 - [提示词概述](../../PROMPTS_OVERVIEW.md)
-- [使用指南](../guides/user-guide.md)
+- [快速开始指南](../../QUICK_START.md) - 快速开始使用
 
 ---
 

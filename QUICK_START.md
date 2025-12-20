@@ -1,5 +1,24 @@
 # 快速开始指南
 
+## 🎯 推荐说明
+
+Prompt Engine 提供**两种使用方式**，**重点推荐方式2**：
+
+- **⭐ 方式2**：精简版规则文件 + 技能系统（Token 优化，按需加载）✅ **重点推荐** - Token 占用减少约 60%，按需加载，灵活配置
+- **方式1**：完整版规则文件（简单直接，复制即用）✅ **适用于小项目** - 简单直接，所有规则始终可用
+
+> **重要**：两种方式都完全支持，**建议优先使用方式2**以获得更好的 Token 优化效果。
+
+**选择建议**：
+- **⭐ 所有项目（推荐）** → 使用方式2（精简版规则文件 + 技能系统）
+- **小项目或不需要 token 优化** → 使用方式1（完整版规则文件）
+
+**快速开始**：
+- ⭐ **方式2（推荐）**：`python3 scripts/prompt-engine merge --core-only --ide cursor --output .cursorrules`
+- 方式1：`python3 scripts/prompt-engine merge --all --ide cursor --output .cursorrules`
+
+详细说明请查看 [README.md](./README.md) 中的"技能系统（Skills）支持"章节。
+
 ## 使用 CLI 工具
 
 ### 方式1：使用包装脚本（推荐，无需安装）
@@ -76,4 +95,8 @@ export PATH="$PATH:$(pwd)/scripts"
 
 - 详细使用指南：查看 [README.md](./README.md)
 - API 文档：查看 [docs/api/README.md](./docs/api/README.md)
+
+---
+
+**最后更新**：2025-12-20
 

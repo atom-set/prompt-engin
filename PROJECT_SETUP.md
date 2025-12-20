@@ -35,7 +35,7 @@
 - ✅ `scripts/utils/validate_prompts.sh` - 验证提示词脚本
 
 ### 6. 文档和示例
-- ✅ `docs/guides/user-guide.md` - 使用指南
+- ✅ `QUICK_START.md` - 快速开始指南
 - ✅ `docs/api/README.md` - API 文档
 - ✅ `examples/basic-usage/example.py` - 基础使用示例
 

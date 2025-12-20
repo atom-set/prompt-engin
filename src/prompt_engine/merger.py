@@ -11,6 +11,25 @@ from typing import List, Optional
 class PromptMerger:
     """提示词合并器类。"""
 
+    # 核心规则文件列表（相对于 prompts/stages/common/）
+    CORE_RULES = [
+        "mode/tool-permission-system.md",
+        "mode/common/mode-common.md",
+        "mode/security/security-permissions.md",
+        "code/format/code-format.md",
+        "code/naming/naming.md",
+        "code/function/function-design.md",
+        "code/comments/comments.md",
+        "code/error-handling/strategy.md",
+        "code/error-handling/logging.md",
+        "code/error-handling/message-format.md",
+        "code/error-handling/return-values.md",
+        "mode/plan/behavior.md",
+        "mode/act/behavior.md",
+        "mode/plan/solution-output.md",
+        "mode/act/file-write.md",
+    ]
+
     def __init__(self, base_path: Optional[str] = None):
         """
         初始化合并器。
@@ -165,6 +184,36 @@ class PromptMerger:
             if file_path.is_file() and file_path.name != "README.md":
                 relative_path = file_path.relative_to(self.base_path)
                 prompt_files.append(str(relative_path))
+
+        return self.merge(prompt_files, output_path, ide_format=ide_format)
+
+    def merge_core_only(
+        self,
+        output_path: str,
+        ide_format: Optional[str] = None,
+    ) -> str:
+        """
+        只合并核心规则文件。
+
+        Args:
+            output_path: 输出文件路径
+            ide_format: IDE 格式（cursor/trae/antigravity）
+
+        Returns:
+            输出文件路径
+        """
+        common_dir = self.base_path / "prompts" / "stages" / "common"
+        if not common_dir.exists():
+            raise FileNotFoundError(f"通用阶段目录不存在: {common_dir}")
+
+        prompt_files = []
+        for rule_path in self.CORE_RULES:
+            full_path = common_dir / rule_path
+            if full_path.exists():
+                relative_path = full_path.relative_to(self.base_path)
+                prompt_files.append(str(relative_path))
+            else:
+                print(f"警告: 核心规则文件不存在，跳过: {rule_path}")
 
         return self.merge(prompt_files, output_path, ide_format=ide_format)
 
