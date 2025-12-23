@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **快速使用提示词支持**（2025-12-23）：
+  - 在 README.md 中添加"快速使用提示词（推荐）"章节
+  - 支持直接使用 `@.cursorrules.all` 引用全部规则（完整版）
+  - 支持直接使用 `@.cursorrules.core` 引用核心规则（精简版，Token 优化）
+  - 提供使用示例和适用场景说明
+  - 说明两个文件的区别和选择建议
+
 ### Changed
 - **重点推荐方式2（精简版规则文件 + 技能系统）**（2025-12-20）：
   - 调整所有文档顺序，将方式2（精简版规则文件 + 技能系统）放在方式1之前
