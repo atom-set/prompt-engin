@@ -92,7 +92,7 @@ echo -e "${BLUE}重要提示:${NC}"
 echo -e "${YELLOW}  - 本脚本使用 cp/rsync 直接复制技能目录${NC}"
 echo -e "${YELLOW}  - 技能将直接复制到目标项目的 .claude/skills/ 目录${NC}"
 echo -e "${YELLOW}  - 如果目标目录已存在，将被覆盖${NC}"
-echo -e "${YELLOW}  - 如果安装失败，请参考: docs/guides/TROUBLESHOOTING.md${NC}"
+echo -e "${YELLOW}  - 如果安装失败，请参考: docs/milestones/V1_SKILL/V1_SKILL_SYSTEM_GUIDE.md${NC}"
 echo ""
 
 # 获取所有技能目录

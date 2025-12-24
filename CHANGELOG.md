@@ -8,6 +8,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **技能产物生成功能**（2025-12-24）：
+  - 在 `scripts/utils/generate_dist.sh` 中添加 `generate_skills()` 函数
+  - 支持将 `.claude/skills/` 目录中的技能复制到 `dist/skills/` 目录
+  - 添加 `--skills` 选项，支持单独生成技能产物
+  - 在 `--all` 模式下自动生成技能产物
+  - 在生成 `single-core` 模式时自动生成技能产物（方式2需要技能）
+  - 更新 `dist/README.md`，添加技能产物使用说明
+  - 技能产物包含 16 个技能，与规则文件产物版本同步
+  - 创建 `scripts/utils/test_skills_generation.sh` 自测脚本，包含 10 个测试用例
+  - 自测脚本覆盖：源目录检查、产物生成、数量一致性、文件完整性、名称一致性、README 复制、模式集成、选项功能、内容完整性、清理功能
+  - 所有测试用例通过率：100%（10/10）
+- **实现 multi-files 模式生成逻辑**（2025-12-24）：
+  - 实现 `generate_dist.sh` 中的 `generate_multi_files()` 函数
+  - 支持 Cursor 平台：生成 `.cursor/rules/` 目录，包含 37 个 `.mdc` 文件，按模块组织
+  - 支持 TRAE 平台：生成 `.trae/ai-rules.yml` YAML 格式规则文件
+  - 支持 Antigravity 平台：生成 `prompt-engine-agent.agent` Agent 配置文件
+  - 优化文件命名：使用基于路径的文件名，更清晰地反映文件模块
+  - 测试验证：所有平台的 multi-files 模式生成和同步功能已验证通过
+- **修复 TRAE 和 Antigravity 文件名问题**（2025-12-24）：
+  - 修复 `generate_dist.sh` 中 TRAE 和 Antigravity 平台的文件名生成逻辑
+  - 处理 CLI 工具自动添加扩展名的问题，确保最终文件名正确
+  - 所有平台产物文件名已验证正确：`.traerules.all`、`.antigravityrules.all` 等
+- **生成所有平台的完整产物**（2025-12-24）：
+  - 成功生成所有平台的三种方式产物：
+    - 单文件完整版：6 个文件（3 个平台 × 2 种方式）
+    - 多文件目录：39 个文件（Cursor: 37 个 .mdc + TRAE: 1 个 .yml + Antigravity: 1 个 .agent）
+  - 总计：45 个产物文件，全部验证通过
+- **环境测试工具和文档完善**（2025-12-24）：
+  - 创建 `scripts/utils/test_environment.sh`：环境测试脚本，自动检查 Python 版本、依赖包、CLI 工具等
+  - 创建 `scripts/utils/test_sync_scripts.sh`：同步脚本测试脚本，自动化测试所有同步相关脚本功能
+  - 创建 `docs/guides/INSTALLATION_AND_TESTING.md`：环境安装和测试指南，包含详细的安装步骤、环境测试方法、常见问题解答
+  - 创建 `docs/guides/USAGE_MANUAL.md`：使用手册文档，详细说明三种使用方式 × 三个平台的完整使用指南
+  - 创建 `docs/guides/QUICK_REFERENCE.md`：快速参考文档，提供常用命令、脚本使用、文件路径等快速查找
+  - 完善 README.md：添加 multi-files 模式使用说明，明确需要先生成产物再同步
+  - 修复提示词文件格式：为所有提示词文件添加缺失的"概述"部分，符合提示词格式规范
+    - 批量处理：使用 `add_overview_section.sh` 脚本处理 23 个文件
+    - 手动修复：修复 20+ 个关键索引文件和文档文件
+    - 最终结果：所有提示词文件格式验证通过（无效：0，总计：0）
 - **快速使用提示词支持**（2025-12-23）：
   - 在 README.md 中添加"快速使用提示词（推荐）"章节
   - 支持直接使用 `@.cursorrules.all` 引用全部规则（完整版）
@@ -16,6 +54,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 说明两个文件的区别和选择建议
 
 ### Changed
+- **更新 README.md 和修复提示词文件格式**（2025-12-24）：
+  - 更新 README.md 中的"待创建"标记：移除已创建文档的"待创建"标记（USAGE_MANUAL.md、QUICK_REFERENCE.md）
+  - 修复提示词文件格式：为 20+ 个文件添加缺失的"概述"部分，符合提示词格式规范
+  - 使用批量脚本 `add_overview_section.sh` 处理 23 个文件
+  - 手动修复关键索引文件和文档文件
 - **修复分阶段实施规则漏洞**（2025-12-23）：
   - 同步修复 `prompts/stages/common/mode/act/phase-implementation.md` 中的 4 个漏洞：
     - 漏洞1：用户说"继续X阶段"的歧义处理 - 明确必须先询问测试
@@ -49,6 +92,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 删除临时文件：`combined.md`、`common.md`
 
 ### Fixed
+- **修复 --skills 选项参数检查问题**（2025-12-24）：
+  - 修复 `generate_dist.sh` 中 `--skills` 选项的参数检查逻辑
+  - 问题：当只使用 `--skills` 时，脚本会显示帮助信息而不是执行技能生成
+  - 修复：在参数检查条件中添加 `skills_only` 变量检查
+  - 结果：`--skills` 选项现在可以正常工作，可以单独生成技能产物
 - **修复文档引用**（2025-12-20）：
   - 修复不存在的文档引用：`skill-capability-sync-plan-2025-12-20.md`
   - 更新所有对 `user-guide.md` 的引用，指向 `QUICK_START.md`

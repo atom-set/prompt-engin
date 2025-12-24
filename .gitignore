@@ -6,7 +6,7 @@ __pycache__/
 .Python
 build/
 develop-eggs/
-dist/
+# dist/ - 注释掉，因为我们需要追踪 dist/ 目录中的产物文件
 downloads/
 eggs/
 .eggs/
@@ -61,6 +61,10 @@ dmypy.json
 *.backup
 .cursor-rules.local.json
 backups/
+
+# Distribution files (dist/) - 允许追踪，用户可直接使用
+# dist/ 目录中的产物文件应该提交到 Git，方便用户直接使用（无需安装环境）
+# 注意：上面的 dist/ 已被注释掉，确保产物目录可以被 Git 追踪
 
 # Temporary files
 *.tmp

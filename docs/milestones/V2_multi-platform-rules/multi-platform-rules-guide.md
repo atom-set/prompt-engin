@@ -1,8 +1,11 @@
 # 多平台多方式规则使用指南
 
-> **文件说明**：本指南说明如何在多个 IDE 平台（Cursor、TRAE、Antigravity）中使用不同的规则文件方式
+> ⚠️ **已整合**：本文档内容已整合到 [V2 版本改进计划](../milestones/V2_IMPROVEMENT/V2_IMPROVEMENT_PLAN.md)，建议查看合并后的文档。
+> 
+> **文件说明**：本指南说明如何在多个 IDE 平台（Cursor、TRAE、Antigravity）中使用不同的规则文件方式（历史文档，保留供参考）
 > **创建时间**：2025-12-23
 > **更新时间**：2025-12-23
+> **整合时间**：2025-12-24
 
 ---
 
@@ -560,9 +563,7 @@ bash scripts/utils/sync_rules.sh --platform trae --mode multi-files /path/to/pro
 ## 相关文档
 
 - [快速开始指南](../QUICK_START.md)
-- [技能使用指南](./skills-usage-guide.md)
-- [Token 优化指南](./token-optimization-guide.md)
-- [使用示例](./USAGE_EXAMPLE.md)
+- [V1 版本技能系统完整指南](../V1_SKILL/V1_SKILL_SYSTEM_GUIDE.md) - 技能系统完整指南 ⭐ **推荐**
 
 ---
 
