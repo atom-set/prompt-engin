@@ -391,6 +391,7 @@ cp .cursorrules /path/to/project/
 
 #### 详细文档
 
+- [多平台多方式规则使用指南](./docs/guides/multi-platform-rules-guide.md) - 三种使用方式 × 三个平台的使用指南 ⭐ **推荐**
 - [批量安装指南](./docs/guides/BATCH_INSTALL_GUIDE.md) - 批量安装所有技能的方法（推荐）
 - [技能系统快速参考](./docs/guides/SKILLS_QUICK_REFERENCE.md) - 技能目录位置和使用方法
 - [快速使用指南](./docs/guides/QUICK_START_SKILLS.md) - 快速上手
