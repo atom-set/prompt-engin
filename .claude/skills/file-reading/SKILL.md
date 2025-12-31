@@ -4,7 +4,7 @@ description: 大文件读取策略，对于大文件的读取应采用阶段性�
 tags: [rules, prompt-engine]
 ---
 
-# File Reading
+# 概述
 
 ## 使用场景
 
@@ -28,6 +28,12 @@ tags: [rules, prompt-engine]
 
 > **文件说明**：本文件包含大文件读取的策略和规范
 > **规则来源**：rules/stages/common/mode/plan/file-reading.md
+
+---
+
+## 概述
+
+本文件定义了大文件读取的策略和规范，采用阶段性读取策略，避免一次性读取整个文件导致响应缓慢或资源浪费。适用于文件内容超过 1000 行或 50KB 的场景，通过分块读取、选择性读取等方式提高处理效率。
 
 ---
 

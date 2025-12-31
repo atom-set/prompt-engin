@@ -586,7 +586,35 @@ openskills read document-format
 
 ### 7.2 创建技能的方法
 
-**方法1：使用规则转技能工具（推荐）**
+**方法1：批量生成所有技能（最推荐）⭐**
+
+**工具位置**：`scripts/utils/generate_all_skills.sh`
+
+**功能**：一键批量生成所有 16 个技能，自动从规则文件转换。
+
+**使用示例**：
+
+```bash
+# 进入 prompt-engin 项目目录
+cd /path/to/prompt-engin
+
+# 生成所有技能（跳过已存在的，默认行为）
+bash scripts/utils/generate_all_skills.sh
+
+# 覆盖所有已存在的技能（强制重新生成）
+bash scripts/utils/generate_all_skills.sh --overwrite
+
+# 静默模式（只显示错误和统计）
+bash scripts/utils/generate_all_skills.sh --quiet
+```
+
+**优势**：
+- ✅ 一键生成所有 16 个技能，无需逐个创建
+- ✅ 自动处理技能映射关系，无需手动指定
+- ✅ 支持覆盖模式和跳过模式，灵活配置
+- ✅ 提供详细的进度显示和统计信息
+
+**方法2：使用规则转技能工具（单个技能）**
 
 **工具位置**：`scripts/utils/convert_rule_to_skill.py`
 
@@ -596,7 +624,7 @@ openskills read document-format
 # 进入 prompt-engin 项目目录
 cd /path/to/prompt-engin
 
-# 从规则文件创建技能
+# 从规则文件创建单个技能
 python3 scripts/utils/convert_rule_to_skill.py \
   --rule-file prompts/stages/common/document/document-format.md \
   --skill-name document-format \
@@ -608,7 +636,7 @@ python3 scripts/utils/convert_rule_to_skill.py \
 - `--skill-name`：技能名称（小写字母、数字、连字符）
 - `--description`：技能描述（可选，如果不提供会自动提取）
 
-**方法2：手动创建技能**
+**方法3：手动创建技能**
 
 **步骤1：创建技能目录**
 

@@ -8,6 +8,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- **批量生成技能脚本**（2025-12-31）：
+  - 创建 `scripts/utils/generate_all_skills.sh`：批量生成所有技能脚本
+  - 功能特性：
+    - 一键批量生成所有 16 个技能，自动从规则文件转换
+    - 支持 `--overwrite` 覆盖模式：强制重新生成所有技能
+    - 支持 `--skip-existing` 跳过模式：默认跳过已存在的技能（默认行为）
+    - 支持 `--quiet` 静默模式：只显示错误和最终统计
+    - 自动处理技能映射关系，无需手动指定规则文件路径
+    - 提供详细的进度显示和统计信息（成功/失败/跳过数量）
+    - 包含完整的错误处理和验证机制
+  - 更新相关文档：
+    - 更新 `docs/milestones/V1_SKILL/SKILLS_CREATION.md`：将批量生成脚本设为最推荐方法
+    - 更新 `docs/milestones/V1_SKILL/V1_SKILL_SYSTEM_GUIDE.md`：添加批量生成脚本说明
+    - 更新 `.claude/skills/README.md`：添加批量生成脚本使用示例
+    - 更新 `dist/skills/README.md`：同步更新技能创建方法
+  - 解决的问题：
+    - 解决技能文件缺失问题：当 `.claude/skills/` 目录中只有空目录时，可以一键重新生成所有技能
+    - 提高技能生成效率：从手动运行 16 次命令减少到一键生成
+    - 减少手动操作错误：自动处理技能映射关系，避免路径错误
+  - 使用示例：
+    ```bash
+    # 生成所有技能（跳过已存在的，默认行为）
+    bash scripts/utils/generate_all_skills.sh
+    
+    # 覆盖所有已存在的技能（强制重新生成）
+    bash scripts/utils/generate_all_skills.sh --overwrite
+    
+    # 静默模式（只显示错误和统计）
+    bash scripts/utils/generate_all_skills.sh --quiet
+    ```
 - **技能产物生成功能**（2025-12-24）：
   - 在 `scripts/utils/generate_dist.sh` 中添加 `generate_skills()` 函数
   - 支持将 `.claude/skills/` 目录中的技能复制到 `dist/skills/` 目录

@@ -4,7 +4,7 @@ description: 完整方案模块化输出策略，适用于复杂内容的输出
 tags: [rules, prompt-engine]
 ---
 
-# Modular Output
+# 概述
 
 ## 使用场景
 
@@ -28,6 +28,12 @@ tags: [rules, prompt-engine]
 
 > **文件说明**：本文件包含完整方案模块化输出策略
 > **规则来源**：rules/stages/common/mode/plan/modular-output.md
+
+---
+
+## 概述
+
+本文件定义了完整方案模块化输出策略，适用于完整技术方案、设计方案等复杂内容的输出。采用模块化输出策略，将复杂内容拆分为多个逻辑模块，按顺序逐步输出，便于用户理解和确认，提高方案质量和用户体验。
 
 ---
 

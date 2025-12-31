@@ -48,7 +48,44 @@
 
 ## 二、创建技能的方法
 
-### 方法1：使用规则转技能工具（推荐）
+### 方法1：批量生成所有技能（最推荐）⭐
+
+**工具位置**：`scripts/utils/generate_all_skills.sh`
+
+**功能**：一键批量生成所有 16 个技能，自动从规则文件转换。
+
+**使用示例**：
+
+```bash
+# 进入 prompt-engin 项目目录
+cd /path/to/prompt-engin
+
+# 生成所有技能（跳过已存在的，默认行为）
+bash scripts/utils/generate_all_skills.sh
+
+# 覆盖所有已存在的技能（强制重新生成）
+bash scripts/utils/generate_all_skills.sh --overwrite
+
+# 静默模式（只显示错误和统计）
+bash scripts/utils/generate_all_skills.sh --quiet
+
+# 查看帮助信息
+bash scripts/utils/generate_all_skills.sh --help
+```
+
+**优势**：
+- ✅ 一键生成所有 16 个技能，无需逐个创建
+- ✅ 自动处理技能映射关系，无需手动指定
+- ✅ 支持覆盖模式和跳过模式，灵活配置
+- ✅ 提供详细的进度显示和统计信息
+- ✅ 包含错误处理和验证机制
+
+**适用场景**：
+- 首次创建所有技能
+- 规则文件更新后重新生成技能
+- 技能文件丢失后恢复
+
+### 方法2：使用规则转技能工具（单个技能）
 
 **工具位置**：`scripts/utils/convert_rule_to_skill.py`
 
@@ -58,7 +95,7 @@
 # 进入 prompt-engin 项目目录
 cd /path/to/prompt-engin
 
-# 从规则文件创建技能
+# 从规则文件创建单个技能
 python3 scripts/utils/convert_rule_to_skill.py \
   --rule-file prompts/stages/common/document/document-format.md \
   --skill-name document-format \
@@ -70,7 +107,12 @@ python3 scripts/utils/convert_rule_to_skill.py \
 - `--skill-name`：技能名称（小写字母、数字、连字符）
 - `--description`：技能描述（可选，如果不提供会自动提取）
 
-### 方法2：使用 Shell 脚本（参考项目）
+**适用场景**：
+- 创建新技能（不在批量列表中的）
+- 测试单个技能的生成
+- 修改单个技能后重新生成
+
+### 方法3：使用 Shell 脚本（参考项目）
 
 **工具位置**：`scripts/utils/create_skill.sh`（如果存在）
 
@@ -158,7 +200,19 @@ EOF
 
 ### 3.2 批量创建技能
 
-**使用脚本批量创建**：
+**推荐方式：使用批量生成脚本** ⭐
+
+```bash
+# 进入 prompt-engin 项目目录
+cd /path/to/prompt-engin
+
+# 一键生成所有 16 个技能
+bash scripts/utils/generate_all_skills.sh
+```
+
+**传统方式：逐个创建**（不推荐，仅作参考）
+
+如果需要逐个创建技能，可以使用以下命令：
 
 ```bash
 # 进入 prompt-engin 项目目录
@@ -173,26 +227,10 @@ python3 scripts/utils/convert_rule_to_skill.py \
   --rule-file prompts/stages/common/document/time-format.md \
   --skill-name time-format
 
-python3 scripts/utils/convert_rule_to_skill.py \
-  --rule-file prompts/stages/common/code/organization/code-organization.md \
-  --skill-name code-organization
-
-python3 scripts/utils/convert_rule_to_skill.py \
-  --rule-file prompts/stages/common/code/problem-location/problem-location.md \
-  --skill-name problem-location
-
-python3 scripts/utils/convert_rule_to_skill.py \
-  --rule-file prompts/stages/common/code/design-principles/design-principles.md \
-  --skill-name design-principles
-
-python3 scripts/utils/convert_rule_to_skill.py \
-  --rule-file prompts/stages/documentation/wiki-output.md \
-  --skill-name wiki-output
-
-python3 scripts/utils/convert_rule_to_skill.py \
-  --rule-file prompts/stages/documentation/document-generation.md \
-  --skill-name document-generation
+# ... 其他技能类似
 ```
+
+**注意**：推荐使用批量生成脚本，更高效、更不容易出错。
 
 ---
 
@@ -269,4 +307,4 @@ openskills read document-format
 
 ---
 
-**最后更新**: 2025-12-20（本地时间）
+**最后更新**: 2025-12-31（本地时间）

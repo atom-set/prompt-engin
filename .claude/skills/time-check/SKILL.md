@@ -4,7 +4,7 @@ description: 时间字段强制检查机制，创建包含时间字段的文档�
 tags: [rules, prompt-engine]
 ---
 
-# Time Check
+# 概述
 
 ## 使用场景
 
@@ -29,6 +29,12 @@ tags: [rules, prompt-engine]
 > **文件说明**：本文件包含 Act 模式下时间字段的强制检查机制
 > **规则来源**：rules/stages/common/mode/act/time-check.md
 > **相关规范**：时间格式要求请参考 `prompts/stages/common/document/time-format.md`
+
+---
+
+## 概述
+
+本文件定义了 Act 模式下时间字段的强制检查机制，确保在创建包含时间字段的文档时，必须先通过工具获取当前时间，严禁使用假设时间。适用于所有包含时间字段的文档创建和修改场景，包括创建时间、更新时间、日期等。
 
 ---
 

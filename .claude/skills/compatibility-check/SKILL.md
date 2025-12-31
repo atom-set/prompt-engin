@@ -4,7 +4,7 @@ description: 技术方案调整的兼容性确认机制，涉及技术方案调�
 tags: [rules, prompt-engine]
 ---
 
-# Compatibility Check
+# 概述
 
 ## 使用场景
 
@@ -28,6 +28,12 @@ tags: [rules, prompt-engine]
 
 > **文件说明**：本文件包含技术方案调整的兼容性确认机制
 > **规则来源**：rules/stages/common/mode/plan/compatibility-check.md
+
+---
+
+## 概述
+
+本文件定义了技术方案调整时的兼容性确认机制，确保在修改 API 接口、数据结构、配置项等可能影响现有代码的调整时，必须明确询问用户是否需要向下兼容，得到用户明确反馈后再执行。适用于所有涉及技术方案调整的场景，包括接口变更、数据结构调整、配置项修改等。
 
 ---
 

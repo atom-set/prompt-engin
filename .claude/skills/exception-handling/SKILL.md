@@ -4,7 +4,7 @@ description: 例外情况的处理流程，包括明显的语法错误、已知�
 tags: [rules, prompt-engine]
 ---
 
-# Exception Handling
+# 概述
 
 ## 使用场景
 
@@ -28,6 +28,12 @@ tags: [rules, prompt-engine]
 
 > **文件说明**：本文件包含例外情况的处理流程
 > **规则来源**：rules/stages/common/mode/plan/exception-handling.md
+
+---
+
+## 概述
+
+本文件定义了例外情况的处理流程，包括明显的语法错误、已知的简单问题、紧急修复、重复出现的问题等场景。这些例外情况可以跳过详细定位，但仍需输出简化版方案，确保修复的正确性和可追溯性。
 
 ---
 

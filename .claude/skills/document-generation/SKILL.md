@@ -4,7 +4,7 @@ description: 文档生成规范，整合技术方案、架构图、WIKI 等文�
 tags: [rules, prompt-engine]
 ---
 
-# 📑 目录导航
+# 概述
 
 ## 使用场景
 
@@ -31,6 +31,12 @@ tags: [rules, prompt-engine]
 > **相关文件**：
 > - `architecture-diagram-template.md` - 架构图文档的详细规范（快速参考）
 > - `wiki-output.md` - WIKI 文档的详细规范（快速参考）
+
+---
+
+## 概述
+
+本文件定义了所有文档类型的生成规范，包括技术方案文档、架构图文档、WIKI 文档等。这是文档生成的整合版规范，提供了统一的文档生成规范，适用于所有需要结构化生成的技术文档。
 
 ---
 

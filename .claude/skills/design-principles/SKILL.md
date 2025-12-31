@@ -4,7 +4,7 @@ description: 设计原则规范，强调简单设计优先，避免过度设计
 tags: [rules, prompt-engine]
 ---
 
-# 设计原则规范
+# 概述
 
 ## 使用场景
 
@@ -28,6 +28,12 @@ tags: [rules, prompt-engine]
 
 > **文件说明**：本文件包含设计原则相关规则，强调简单设计优先，避免过度设计
 > **规则来源**：rules/stages/common/code/design-principles/design-principles.md
+
+---
+
+## 概述
+
+本文件定义了设计原则规范，强调简单设计优先，避免过度设计。适用于所有技术方案设计、架构设计、代码实现等场景，确保设计方案简洁、实用、易于维护。
 
 ---
 
