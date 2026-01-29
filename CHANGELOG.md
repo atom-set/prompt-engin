@@ -112,8 +112,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 只保留核心文档：README.md, QUICK_START.md, CHANGELOG.md, AGENTS.md
 - ✅ 将 `.claude/` 目录添加到 `.gitignore`（Cursor IDE 个人配置，不应纳入版本控制）
 - ✅ 将 `.specstory/` 目录添加到 `.gitignore`（AI 聊天历史，7.5MB，不应纳入版本控制）
-- ✅ 清理构建产物：`htmlcov/`、`src/cjt_prompt_engin.egg-info/`
-- ✅ 重新生成包信息：`src/cjt_skill_engine.egg-info/`（名称已更新）
+- ✅ 清理构建产物：`htmlcov/`、`src/prompt_engin.egg-info/`
+- ✅ 重新生成包信息：`src/skill_engine.egg-info/`（名称已更新）
 
 #### 构建工具重构
 - ✅ 重构 skill-engine CLI 工具
@@ -203,8 +203,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **v2.0 快速开始**：
 ```bash
 # 克隆仓库
-git clone https://github.com/your-org/cjt-skill-engine.git
-cd cjt-skill-engine
+git clone https://github.com/your-org/skill-engine.git
+cd skill-engine
 
 # 安装依赖
 pip install -r requirements.txt

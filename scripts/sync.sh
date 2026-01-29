@@ -6,7 +6,7 @@
 # 将 skills 同步到指定项目
 # 
 # 使用方法：
-#   cd ~/cjt-skill-engine
+#   cd ~/skill-engine
 #   ./scripts/sync.sh /path/to/your-project
 ###############################################################################
 

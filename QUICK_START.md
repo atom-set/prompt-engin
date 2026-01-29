@@ -1,6 +1,6 @@
 # 快速开始指南
 
-> 5 分钟快速上手 CJT Skill Engine v2.0
+> 5 分钟快速上手 Skill Engine v2.0
 
 ## 📋 目录
 
@@ -45,8 +45,8 @@ skills/
 ### 1. 克隆仓库
 
 ```bash
-git clone https://github.com/your-org/cjt-skill-engine.git
-cd cjt-skill-engine
+git clone https://github.com/your-org/skill-engine.git
+cd skill-engine
 ```
 
 ### 2. 安装依赖
@@ -506,8 +506,8 @@ python3 -m skill_engine.cli info
 ## 获取帮助
 
 - **查看文档**: [README.md](README.md)
-- **提交问题**: [GitHub Issues](https://github.com/your-org/cjt-skill-engine/issues)
-- **参与讨论**: [GitHub Discussions](https://github.com/your-org/cjt-skill-engine/discussions)
+- **提交问题**: [GitHub Issues](https://github.com/your-org/skill-engine/issues)
+- **参与讨论**: [GitHub Discussions](https://github.com/your-org/skill-engine/discussions)
 
 ---
 

@@ -3,14 +3,14 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cjt-skill-engine"
+name = "skill-engine"
 version = "2.0.0"
 description = "Skills-based AI Skill Engine Framework"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "CJT Team"}
+    {name = "Development Team"}
 ]
 keywords = [
     # 核心关键字：Skills（重点突出）

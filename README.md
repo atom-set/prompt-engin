@@ -1,4 +1,4 @@
-# CJT Skill Engine
+# Skill Engine
 
 > 基于 Skills 的 AI 提示词工程框架 v2.0
 
@@ -39,7 +39,7 @@
 
 ```bash
 # 克隆到本地目录（一次性操作）
-git clone https://gitlab.rd.chanjet.com/cc_web/prompt-engin ~/cjt-skill-engine
+git clone https://gitlab.rd.chanjet.com/cc_web/prompt-engin ~/skill-engine
 ```
 
 #### 步骤 2：同步 skills 到项目
@@ -48,7 +48,7 @@ git clone https://gitlab.rd.chanjet.com/cc_web/prompt-engin ~/cjt-skill-engine
 
 ```bash
 # 进入 skill-engine 项目目录
-cd ~/cjt-skill-engine
+cd ~/skill-engine
 
 # 同步 skills 到目标项目（会复制到 .claude/skills/ 目录和 AGENTS.md）
 ./scripts/sync.sh /path/to/your-project
@@ -463,7 +463,7 @@ open htmlcov/index.html
 ### 项目结构
 
 ```
-cjt-skill-engine/
+skill-engine/
 ├── skills/              # Skills 库（31 个 skills，6 个领域）
 │   ├── core/           # 核心规则领域（15 个，Priority 1-3）
 │   │   ├── act-mode/   # 每个 skill 是一个目录
@@ -562,4 +562,4 @@ cjt-skill-engine/
 
 ---
 
-**Made with ❤️ by CJT Team**
+**Made with ❤️ by Development Team**

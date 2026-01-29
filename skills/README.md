@@ -1,10 +1,10 @@
 # Skills 库
 
-> CJT Skill Engine v2.0 - 领域驱动的 Skills 系统
+> Skill Engine v2.0 - 领域驱动的 Skills 系统
 
 ## 📖 简介
 
-本目录包含项目的所有 Skills 定义。Skills 是 CJT Skill Engine v2.0 的核心，采用领域驱动的组织方式。
+本目录包含项目的所有 Skills 定义。Skills 是 Skill Engine v2.0 的核心，采用领域驱动的组织方式。
 
 ## 🎯 Skills 系统说明
 
