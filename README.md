@@ -1,245 +1,449 @@
-# Prompt Engine
+# CJT Skill Engine
 
-> 🚀 一个用于结构化管理和组织提示词的开源工程
+> 基于 Skills 的 AI 提示词工程框架 v2.0
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python Version](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-
-**🔍 GitHub Topics**: 
-- **🎯 核心关键字（提示词）**：`prompt` `prompt-engineering` `prompt-template` `prompt-management` `prompt-library` `prompt-optimization` `prompt-versioning` `prompt-validation`
-- **AI 相关**：`ai-assistant` `llm` `chatgpt` `claude` `cursor` `ai-tools` `ai-development` `ai-generated`
-- **规则相关**：`rules` `rule-engine` `rule-management` `cursor-rules`
-- **工具相关**：`developer-tools` `cli-tool` `template-engine` `automation` `markdown` `yaml` `python` `software-engineering`
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://gitlab.rd.chanjet.com/cc_web/prompt-engin)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
+[![Tests](https://img.shields.io/badge/tests-76%20passed-brightgreen.svg)]()
+[![Coverage](https://img.shields.io/badge/coverage-75%25-yellowgreen.svg)]()
 
 ---
 
-## 📋 简介
+## 📖 简介
 
-**Prompt Engine** 是一个**提示词（Prompt）**结构化工程，帮助开发者更好地组织、管理和复用提示词。
+模块化的 AI 提示词规则管理框架，通过 **Skills** 规范 AI 行为，提升开发效率和代码质量。
 
 **核心特性**：
-- 📝 结构化组织提示词（按阶段和类型分类）
-- 🔄 支持版本管理和批量处理
-- 🎨 提供可复用的提示词模板
-- 🔧 提供 CLI 工具，方便集成到开发流程
-- 📚 支持多个 IDE 平台（Cursor、TRAE、Antigravity）
+- 🎯 **按角色组织** - 开发者、文档编写者、项目管理者等不同角色
+- 📦 **模块化加载** - 按需使用，灵活组合
+- 🔄 **标准化格式** - YAML frontmatter + Markdown
+- ⚡ **优先级机制** - 支持优先级字段，AI 快速识别和应用顺序
+- 🤖 **自动生成** - 自动生成 AGENTS.md，支持 Cursor 和 Claude Desktop
+- 🚀 **开箱即用** - 克隆即用，团队共享
 
-> 📖 **详细说明**：查看 [完整介绍文档](./docs/guides/INTRODUCTION.md)（待创建）  
-> 📋 **提示词概述**：查看 [提示词概述文档](./PROMPTS_OVERVIEW.md) 了解所有提示词的描述和应用场景
+**适用场景**：
+- 在项目中使用 AI 辅助开发，规范 AI 行为
+- 团队统一开发规范和最佳实践
+- 创建和维护自定义的 AI 提示词规则
 
 ---
 
-## 🔧 环境安装和测试
+## 🚀 使用指南
 
-### 系统要求
+> 面向使用 AI 辅助开发的所有人员，在其他工程中直接使用
 
-- **Python**：3.8 或更高版本
-- **操作系统**：macOS、Linux、Windows
-- **依赖**：见 `requirements.txt`
+### 快速开始
 
-### 安装步骤
+#### 步骤 1：克隆 skill-engine 到本地
 
 ```bash
-# 1. 克隆仓库
-git clone https://github.com/your-username/prompt-engin.git
+# 克隆到本地目录（一次性操作）
+git clone https://gitlab.rd.chanjet.com/cc_web/prompt-engin ~/cjt-skill-engine
+```
+
+#### 步骤 2：同步 skills 到项目
+
+**方式一：使用同步脚本（推荐）**
+
+```bash
+# 进入 skill-engine 项目目录
+cd ~/cjt-skill-engine
+
+# 同步 skills 到目标项目（会复制到 .claude/skills/ 目录和 AGENTS.md）
+./scripts/sync.sh /path/to/your-project
+```
+
+**方式二：手动生成 AGENTS.md**
+
+```bash
+# 在 skill-engine 项目目录中
+python3 -m skill_engine.cli generate
+
+# 或者生成到指定位置
+python3 -m skill_engine.cli generate -o /path/to/your-project/AGENTS.md
+```
+
+**sync 脚本会做什么**：
+- 创建 `.claude` 目录（如果不存在）
+- 复制 `skills/` 目录到目标项目的 `.claude/skills/` 目录
+- 复制 `AGENTS.md` 配置文件到项目根目录
+- 自动检测冲突并提示确认
+
+**AGENTS.md 说明**：
+- ✅ 支持 **Cursor IDE** 和 **Claude Desktop** 两个平台
+- ✅ 自动包含所有 skills 的优先级信息
+- ✅ 使用 `skill-engine generate` 命令可随时更新
+
+#### 步骤 3：提交到版本控制
+
+```bash
+# 进入目标项目目录
+cd /path/to/your-project
+
+# 将 skills 纳入版本控制（团队共享）
+git add .claude/skills/ AGENTS.md
+git commit -m "feat: 添加 AI skills"
+git push
+```
+
+#### 步骤 4：团队成员使用
+
+```bash
+# 团队成员直接拉取使用
+git pull
+
+# 完成！Cursor 和 Claude Desktop 会自动识别 AGENTS.md 和 .claude/skills/
+```
+
+**工作原理**：
+- ✅ **独立副本** - 每个项目有自己的 skills 副本（位于 `.claude/skills/`）
+- ✅ **版本控制** - skills 纳入 Git 管理，可追溯变更
+- ✅ **团队共享** - 所有成员自动获得相同的 skills
+- ✅ **项目隔离** - 不同项目可以有不同的 skills 版本
+- ✅ **无依赖** - 不依赖外部 skill-engine 目录
+- ✅ **标准位置** - skills 放在 `.claude/` 目录下，符合 Cursor/Claude 规范
+
+---
+
+### Skills 库
+
+#### 什么是 Skill？
+
+Skill 是一个**模块化的 AI 提示词规则**，用于规范 AI 在特定场景下的行为。每个 skill 包含：
+
+- 📝 **YAML Frontmatter** - 名称、描述、优先级、标签等元数据
+- ⚡ **优先级字段** - 1-4 级优先级，AI 快速识别应用顺序
+- 🎯 **使用场景** - 明确该 skill 适用的场景
+- 🔄 **触发条件** - AI 何时应该应用这个规则
+- 🔗 **规则协作** - 如何与其他 skills 配合使用
+- 💡 **完整规则** - 详细的规范说明和最佳实践
+
+**示例结构**：
+```markdown
+---
+name: design-principles
+description: 设计原则规范，强调简单设计优先
+priority: 4
+tags: [code, design, principles]
+---
+
+## 使用场景
+开发新功能、重构代码时使用
+
+## 触发条件
+用户请求实现功能或重构代码时
+
+## 与其他规则的配合
+可与 code-organization 配合使用
+
+## 规则内容
+（详细的设计原则说明）
+```
+
+#### 按角色查看 Skills（31 个）
+
+> **注意**：Skills 分为 4 个优先级：
+> - **Priority 1** - 核心规则（3 个）：必须首先应用的基础规则
+> - **Priority 2** - 模式规则（4 个）：根据当前模式条件应用
+> - **Priority 3** - 代码标准（8 个）：编写代码时自动应用
+> - **Priority 4** - 领域技能（16 个）：按需加载的领域特定技能
+
+<details open>
+<summary>👨‍💻 开发者角色（6 个）</summary>
+
+适合：前端/后端/全栈开发者日常开发使用
+
+| Skill | 说明 | 典型场景 |
+|-------|------|----------|
+| **design-principles** | 简单设计原则，避免过度设计 | 开发新功能、技术选型、代码重构 |
+| **organization** | 代码组织规范，文件拆分原则 | 文件过大（>500行）、代码结构混乱 |
+| **debugging** | 问题定位与调试规范 | Bug 定位、性能优化、异常排查 |
+| **phase-implementation** | 大型工程分阶段实施 | 复杂功能开发、大型项目重构 |
+| **compatibility-check** | 技术方案兼容性确认 | 技术升级、数据库迁移、API 调整 |
+| **exception-handling** | 例外情况快速处理 | 明显语法错误、已知简单问题 |
+
+</details>
+
+<details>
+<summary>📝 文档编写者角色（5 个）</summary>
+
+适合：技术文档编写者、方案设计者、知识库维护者
+
+| Skill | 说明 | 典型场景 |
+|-------|------|----------|
+| **architecture-diagram** | 架构图文档模板规范 | 绘制系统架构图、技术方案图 |
+| **wiki-output** | WIKI 文档输出规范 | 编写技术 WIKI、知识库文档 |
+| **format** | 文档格式规范 | 任务清单、测试用例、报告 |
+| **generation** | 文档生成规范 | 技术方案、设计文档生成 |
+| **time-format** | 时间格式规范 | 创建包含时间字段的文档 |
+
+</details>
+
+<details>
+<summary>🎯 项目管理者角色（2 个）</summary>
+
+适合：项目经理、Tech Lead、架构师
+
+| Skill | 说明 | 典型场景 |
+|-------|------|----------|
+| **phase-implementation** | 分阶段实施规则 | 大型项目规划、里程碑管理 |
+| **clean-principle** | 项目清洁原则 | 项目初始化、代码审查、规范制定 |
+
+</details>
+
+<details>
+<summary>🤝 团队协作角色（2 个）</summary>
+
+适合：所有团队成员，确保沟通质量
+
+| Skill | 说明 | 典型场景 |
+|-------|------|----------|
+| **open-question-confirmation** | 开放性问题确认 | 需求澄清、方案选择、技术决策 |
+| **time-check** | 时间字段检查机制 | 创建文档、生成报告时确保时间准确 |
+
+</details>
+
+<details>
+<summary>⚡ 效率提升工具（2 个）</summary>
+
+适合：所有角色，提升工作效率
+
+| Skill | 说明 | 典型场景 |
+|-------|------|----------|
+| **file-reading** | 大文件读取策略 | 分析大文件、审查长代码 |
+| **modular-output** | 模块化输出策略 | 输出长文档、复杂方案 |
+
+</details>
+
+💡 **提示**：点击角色名称展开/折叠对应的 skills
+
+详见 [skills/README.md](skills/README.md)
+
+---
+
+#### 实际使用场景
+
+<details open>
+<summary>💼 查看 5 个典型场景</summary>
+
+**场景 1：开发新功能**
+```bash
+# 问题：AI 代码写得太复杂，过度设计
+# 解决：加载设计原则规则
+Bash("openskills read design-principles")
+
+# 然后告诉 AI："请帮我实现用户登录功能"
+# AI 会遵循简单设计原则，避免过度设计
+```
+
+**场景 2：重构代码**
+```bash
+# 问题：文件太大，需要拆分
+# 解决：加载代码组织规则
+Bash("openskills read organization")
+
+# 然后："这个文件有 800 行，帮我拆分"
+# AI 会按照规范的拆分原则进行重构
+```
+
+**场景 3：生成技术文档**
+```bash
+# 问题：需要生成规范的架构图文档
+# 解决：加载架构图模板规则
+Bash("openskills read architecture-diagram")
+
+# 然后："生成系统架构文档"
+# AI 会按照模板规范生成 Mermaid 图表和说明
+```
+
+**场景 4：大型项目开发**
+```bash
+# 问题：项目太大，担心一次性做完有风险
+# 解决：加载分阶段实施规则
+Bash("openskills read phase-implementation")
+
+# 然后："帮我开发一个完整的博客系统"
+# AI 会自动分阶段实施，每个阶段完成后确认
+```
+
+**场景 5：技术方案调整**
+```bash
+# 问题：要改数据库，不知道是否需要兼容老版本
+# 解决：加载兼容性检查规则
+Bash("openskills read compatibility-check")
+
+# 然后："把 MySQL 改成 PostgreSQL"
+# AI 会主动询问是否需要向下兼容
+```
+
+**组合使用**
+```bash
+# 可以同时加载多个 skills
+Bash("openskills read design-principles")
+Bash("openskills read phase-implementation")
+```
+
+</details>
+
+---
+
+### CLI 工具
+
+```bash
+# 列表和查看
+skill-engine list                    # 列出所有 skills
+skill-engine read <skill>            # 读取内容
+skill-engine stats                   # 统计信息
+
+# 搜索
+skill-engine search <keyword>        # 关键词搜索
+skill-engine search --tag <tag>      # 标签搜索
+
+# 管理
+skill-engine create <name>           # 创建新 skill
+skill-engine validate <skill>        # 验证格式
+
+# 生成 AGENTS.md（推荐）
+skill-engine generate                 # 生成 AGENTS.md（默认输出到项目根目录）
+skill-engine generate -o custom.md   # 生成到指定文件
+
+# 分析报告（推荐，最简单）
+skill-engine report                  # 生成完整分析报告（一键生成）
+
+# 一键优化（推荐）
+skill-engine optimize                # 查看优化计划（试运行）
+skill-engine optimize --apply        # 应用优化（实际修改文件）
+
+# 综合管理（高级用法）
+skill-engine manage validate         # 检验所有 skills
+skill-engine manage optimize         # 优化建议
+skill-engine manage integrate        # 整合分析
+skill-engine manage priority         # 优先级分析
+skill-engine manage all              # 完整报告
+```
+
+---
+
+## 👨‍💻 开发指南
+
+> 面向 skill-engine 项目的开发者和贡献者，创建和维护 skill
+
+### 开发环境搭建
+
+```bash
+# 克隆仓库
+git clone https://gitlab.rd.chanjet.com/cc_web/prompt-engin
 cd prompt-engin
 
-# 2. 安装依赖
+# 安装依赖
 pip install -r requirements.txt
+pip install -r requirements-dev.txt
 
-# 3. 安装到系统（可选，用于全局使用 prompt-engine 命令）
+# 安装开发版本
 pip install -e .
 ```
 
-### 环境测试
+---
 
-运行环境测试脚本，检查环境是否正确配置：
+### 创建自定义 Skill
+
+#### 使用 CLI 创建（推荐）
 
 ```bash
-# 测试环境（Shell 脚本）
-bash scripts/utils/test_environment.sh
+# 使用 CLI 工具创建
+python3 -m skill_engine.cli create my-skill
 
-# 或使用 Python 脚本（更详细的测试）
-python3 scripts/utils/test_environment.py
+# 验证格式
+python3 -m skill_engine.cli validate my-skill
 ```
 
-**测试内容**：
-- ✅ Python 版本检查（需要 3.8+）
-- ✅ 依赖包检查（检查 requirements.txt 中的包）
-- ✅ CLI 工具可用性检查（测试 prompt-engine 命令）
-- ✅ 基本功能测试（list、validate 等命令）
-
-> 📖 **详细说明**：查看 [环境安装和测试指南](./docs/guides/INSTALLATION_AND_TESTING.md)  
-> ❓ **遇到问题？**：查看 [常见问题 FAQ](./docs/guides/FAQ.md)（待创建）
-
----
-
-## 📖 使用手册
-
-### 三种使用方式快速选择
-
-Prompt Engine 支持**三种使用方式**，适用于不同的项目需求：
-
-| 使用方式 | 特点 | Token 占用 | 适用场景 | 推荐度 |
-|---------|------|-----------|---------|--------|
-| **方式1：单文件完整版** | 简单直接，所有规则在一个文件 | 高（8597 行） | 小项目 | ⭐⭐⭐ |
-| **方式2：单文件精简版 + 技能** | Token 优化，按需加载 | 低（3427 行 + 按需） | 大项目 | ⭐⭐⭐⭐⭐ |
-| **方式3：多文件目录** | 精细控制，路径特定配置 | 中等（按需加载） | 大型/复杂项目 | ⭐⭐⭐⭐ |
-
-> 💡 **快速选择**：
-> - **小项目** → [方式1：单文件完整版](#方式1单文件完整版)
-> - **大项目** → [方式2：单文件精简版 + 技能](#方式2单文件精简版--技能系统) ⭐ **推荐**
-> - **大型/复杂项目** → [方式3：多文件目录](#方式3多文件目录)
-
-### 三个平台支持
-
-| 平台 | 单文件方式 | 多文件目录 | 状态 |
-|------|----------|-----------|------|
-| **[Cursor IDE](https://cursor.sh/)** | `.cursorrules` | `.cursor/rules/` | ✅ 完全支持 |
-| **[TRAE IDE](https://traeide.ai-kit.cn/)** | `.traerules` | `.trae/ai-rules.yml` | ✅ 支持（YAML 格式） |
-| **[Antigravity IDE](https://antigravity.dev/)** | `.antigravityrules` | `.agent` (代理配置) | ✅ 单文件支持 |
-
-> 📖 **详细说明**：查看 [完整使用手册](./docs/guides/USAGE_MANUAL.md) 和 [V2 版本改进计划](./docs/milestones/V2_multi-platform-rules/V2_IMPROVEMENT_PLAN.md) ⭐ **推荐**
-
----
-
-### 方式1：单文件完整版（最简单）
-
-**适用场景**：小项目，不需要 Token 优化
-
-**快速开始**：
+#### 手动创建
 
 ```bash
-# 1. 生成规则文件（选择你的 IDE）
-python3 scripts/prompt-engine merge --all --ide cursor --output .cursorrules
-# 或
-python3 scripts/prompt-engine merge --all --ide trae --output .traerules
-# 或
-python3 scripts/prompt-engine merge --all --ide antigravity --output .antigravityrules
+# 创建 skill 目录（官方规范）
+mkdir -p skills/code/my-skill
 
-# 2. 复制到你的项目根目录
-cp .cursorrules /path/to/your-project/
+# 复制模板到 SKILL.md（固定文件名）
+cp skills/SKILL_TEMPLATE.md skills/code/my-skill/SKILL.md
+
+# 可选：创建支持目录
+mkdir -p skills/code/my-skill/{scripts,references,assets}
+
+# 编辑 SKILL.md 文件，包含：
+# - YAML frontmatter（name, description, tags）
+# - 使用场景
+# - 触发条件
+# - 与其他规则的配合
+# - 完整的规则内容
 ```
 
-**完成！** 现在你的项目已经可以使用规则了。
-
-> 📖 **详细步骤**：查看 [使用手册 - 方式1](./docs/guides/USAGE_MANUAL.md#二方式1单文件完整版)
+参考 [skills/SKILL_TEMPLATE.md](skills/SKILL_TEMPLATE.md) 了解详细格式。
 
 ---
 
-### 方式2：单文件精简版 + 技能系统（推荐）⭐
+### 维护 Skill
 
-**适用场景**：大项目，需要 Token 优化
-
-**快速开始**：
+#### 验证 Skill 格式
 
 ```bash
-# 1. 生成精简版规则文件（只包含核心规则）
-python3 scripts/prompt-engine merge --core-only --ide cursor --output .cursorrules
+# 验证单个 skill
+skill-engine validate <skill-name>
 
-# 2. 复制到你的项目
-cp .cursorrules /path/to/your-project/
-
-# 3. 安装技能（批量安装，推荐）
-cd /path/to/prompt-engin
-bash scripts/utils/install_all_skills.sh /path/to/your-project
-
-# 4. 同步技能到 AGENTS.md
-cd /path/to/your-project
-openskills sync -y
+# 验证所有 skills
+skill-engine validate --all
 ```
 
-**优势**：
-- ✅ Token 占用减少约 60%（从 8597 行减少到 3427 行）
-- ✅ 按需加载，灵活配置
-- ✅ 推荐用于所有项目，特别是大项目
+#### 更新 Skill 内容
 
-> 📖 **详细步骤**：查看 [使用手册 - 方式2](./docs/guides/USAGE_MANUAL.md#三方式2单文件精简版--技能系统)  
-> 📖 **技能系统说明**：查看 [V1 版本技能系统完整指南](./docs/milestones/V1_SKILL/V1_SKILL_SYSTEM_GUIDE.md) ⭐ **推荐**
+1. 直接编辑对应的 `.md` 文件
+2. 确保 YAML frontmatter 格式正确
+3. 运行验证命令检查格式
+4. 提交更改
+
+#### Skill 文件结构要求（符合官方规范）
+
+**官方规范**（Agent Skills 开放标准）：
+- ✅ **每个 skill 是一个目录**：`skills/<category>/<skill-name>/`
+- ✅ **目录内必须包含 `SKILL.md` 文件**（固定文件名）
+- ✅ **支持可选目录**：`scripts/`, `references/`, `assets/`
+- ✅ **兼容平台**：Cursor IDE、Claude Desktop 等
+
+**项目结构示例**：
+```
+skills/
+├── core/
+│   ├── act-mode/              # skill 目录
+│   │   └── SKILL.md           # 固定文件名（必需）
+│   │   ├── scripts/           # 可选：脚本文件
+│   │   ├── references/        # 可选：参考文档
+│   │   └── assets/            # 可选：资源文件
+│   └── code-format/
+│       └── SKILL.md
+├── code/
+│   └── design-principles/
+│       └── SKILL.md
+└── ...
+```
+
+**文件要求**：
+- **位置**：`skills/<category>/<skill-name>/SKILL.md`
+- **分类目录**：`code/`, `documentation/`, `workflow/`, `interaction/`, `project/`, `core/`
+- **必需字段**：`name`, `description`, `tags`
+- **可选字段**：`priority`（1-4，建议添加）
+- **内容结构**：使用场景、触发条件、规则内容等
+
+#### 优先级说明
+
+每个 skill 可以设置 `priority` 字段（1-4）：
+- **Priority 1** - 核心规则：必须首先应用（如 `tool-permission-system`, `mode-common`）
+- **Priority 2** - 模式规则：根据模式条件应用（如 `plan-mode`, `act-mode`）
+- **Priority 3** - 代码标准：编写代码时自动应用（如 `code-format`, `naming`）
+- **Priority 4** - 领域技能：按需加载（如 `design-principles`, `document-format`）
+
+AI 会优先读取 frontmatter 中的 `priority` 字段，快速判断应用顺序。
 
 ---
-
-### 方式3：多文件目录（精细控制）
-
-**适用场景**：大型/复杂项目，需要路径特定配置
-
-**支持情况**：
-- ✅ **Cursor**：支持 `.cursor/rules/` 目录（Markdown 格式）
-- ✅ **TRAE**：支持 `.trae/ai-rules.yml`（YAML 格式）
-- ⚠️ **Antigravity**：多文件规则未确认（目前只支持单文件）
-
-**快速开始**：
-
-```bash
-# 第一步：生成 multi-files 模式的产物（必须先执行）
-cd /path/to/prompt-engin
-bash scripts/utils/generate_dist.sh --platform cursor --mode multi-files
-
-# 第二步：同步到项目
-bash scripts/utils/sync_to_project.sh --platform cursor --mode multi-files /path/to/your-project
-
-# TRAE：同步到 .trae/ 目录（需要先生成产物）
-bash scripts/utils/generate_dist.sh --platform trae --mode multi-files
-bash scripts/utils/sync_to_project.sh --platform trae --mode multi-files /path/to/your-project
-```
-
-**重要提示**：
-- ⚠️ **必须先生成产物**：使用 multi-files 模式前，必须先运行 `generate_dist.sh` 生成产物
-- ✅ **预览模式**：可以使用 `--dry-run` 参数预览同步操作，不实际执行
-- 📖 **详细说明**：查看 [V2 版本改进计划](./docs/milestones/V2_multi-platform-rules/V2_IMPROVEMENT_PLAN.md) 了解完整使用指南
-
-> 📖 **详细说明**：查看 [使用手册 - 方式3](./docs/guides/USAGE_MANUAL.md#四方式3多文件目录) 和 [V2 版本改进计划](./docs/milestones/V2_multi-platform-rules/V2_IMPROVEMENT_PLAN.md) ⭐ **推荐**
-
----
-
-### 快速使用提示词（Cursor IDE）
-
-在 Cursor IDE 中，您可以直接使用以下提示词快速引用规则文件：
-
-- **`@.cursorrules.all`** - 引用全部规则（完整版，包含所有规则）
-- **`@.cursorrules.core`** - 引用核心规则（精简版，只包含核心规则，Token 优化）
-
-**使用示例**：
-
-```
-@.cursorrules.all 帮我分析这个代码问题
-```
-
-```
-@.cursorrules.core 帮我实现一个用户登录功能
-```
-
-> 💡 **提示**：
-> - `.cursorrules.all` 包含所有规则（约 8597 行），适合需要完整规则支持的项目
-> - `.cursorrules.core` 只包含核心规则（约 3427 行），Token 占用减少约 60%，适合需要 Token 优化的项目
-> - 两个文件都可以直接使用，无需额外配置
-
----
-
-## 📁 项目结构
-
-```
-prompt-engin/
-├── src/prompt_engine/    # 核心代码模块
-├── prompts/              # 提示词模板目录
-│   ├── stages/           # 按阶段组织的提示词
-│   └── types/            # 按项目类型组织的提示词
-├── scripts/              # 工具脚本
-│   ├── core/             # 核心脚本
-│   └── utils/            # 工具脚本
-├── docs/                 # 文档目录
-│   ├── guides/           # 使用指南
-│   ├── api/              # API 文档
-│   └── examples/         # 示例文档
-├── examples/             # 示例项目
-└── tests/                # 测试目录
-```
-
-> 📖 **详细说明**：查看 [项目结构文档](./docs/PROJECT_STRUCTURE.md)（待创建）
-
----
-
-## 🛠️ 开发
 
 ### 运行测试
 
@@ -247,74 +451,115 @@ prompt-engin/
 # 运行所有测试
 pytest
 
-# 运行特定测试
-pytest tests/unit/test_parser.py
+# 运行测试并生成覆盖率报告
+pytest --cov=skill_engine --cov-report=html
 
-# 生成覆盖率报告
-pytest --cov=src/prompt_engine
+# 查看覆盖率报告
+open htmlcov/index.html
 ```
-
-### 代码质量检查
-
-```bash
-# 格式化代码
-black src/
-
-# 检查代码风格
-flake8 src/
-
-# 类型检查
-mypy src/
-```
-
-> 📖 **详细说明**：查看 [开发指南](./docs/guides/DEVELOPMENT.md)（待创建）
 
 ---
 
-## 📝 贡献
+### 项目结构
 
-欢迎贡献！请查看 [CONTRIBUTING.md](./CONTRIBUTING.md) 了解贡献指南。
+```
+cjt-skill-engine/
+├── skills/              # Skills 库（31 个 skills，6 个领域）
+│   ├── core/           # 核心规则领域（15 个，Priority 1-3）
+│   │   ├── act-mode/   # 每个 skill 是一个目录
+│   │   │   └── SKILL.md # 固定文件名（官方规范）
+│   │   └── code-format/
+│   │       └── SKILL.md
+│   ├── code/           # 代码开发领域（3 个，Priority 4）
+│   ├── documentation/  # 文档领域（5 个，Priority 4）
+│   ├── workflow/       # 工作流程领域（5 个，Priority 4）
+│   ├── interaction/    # 交互领域（2 个，Priority 4）
+│   ├── project/        # 项目管理领域（1 个，Priority 4）
+│   ├── README.md       # Skills 总览
+│   └── SKILL_TEMPLATE.md  # Skill 模板
+├── src/skill_engine/   # CLI 工具源码
+│   ├── cli.py          # 主入口
+│   ├── commands/       # 命令模块（包含 generate 命令）
+│   └── utils/          # 工具函数
+├── scripts/            # 辅助脚本
+│   ├── sync.sh         # 同步脚本
+│   └── migrate_to_official_structure.py  # 迁移脚本
+├── tests/              # 测试用例（76 个测试，75% 覆盖率）
+├── AGENTS.md           # Cursor/Claude Desktop 配置文件（自动生成）
+└── docs/               # 文档
+```
+
+**结构说明**：
+- ✅ 符合 **Agent Skills 开放标准**（官方规范）
+- ✅ 每个 skill 是目录，包含 `SKILL.md`（固定文件名）
+- ✅ 支持可选目录：`scripts/`, `references/`, `assets/`
+- ✅ 兼容 Cursor IDE、Claude Desktop 等平台
+
+---
+
+### 贡献指南
+
+#### 贡献方式
+
+1. Fork 本仓库
+2. 创建特性分支 (`git checkout -b feature/my-skill`)
+3. 提交更改 (`git commit -m 'feat: 添加新 skill'`)
+4. 推送到分支 (`git push origin feature/my-skill`)
+5. 创建 Pull Request
+
+#### 提交规范
+
+遵循 [Conventional Commits](https://www.conventionalcommits.org/) 格式：
+
+- `feat:` 新功能
+- `fix:` Bug 修复
+- `docs:` 文档更新
+- `refactor:` 代码重构
+- `test:` 测试相关
+
+---
+
+## 📚 文档和资源
+
+- **[QUICK_START.md](QUICK_START.md)** - 5 分钟快速上手指南
+- **[CHANGELOG.md](CHANGELOG.md)** - 版本变更历史
+- **[skills/README.md](skills/README.md)** - Skills 库详细说明
+- **[skills/SKILL_TEMPLATE.md](skills/SKILL_TEMPLATE.md)** - Skill 创建模板
+- **[docs/SKILLS_MANAGE_GUIDE.md](docs/SKILLS_MANAGE_GUIDE.md)** - Skills 管理工具使用指南
+
+---
+
+## 📦 版本历史
+
+**v2.0.0** (2026-01-27) - 当前版本
+- ✅ 统一为 Skills 系统（移除 Prompts）
+- ✅ 按角色组织 skills
+- ✅ 重构 CLI 工具
+- ✅ 完整测试套件（76 个测试，75% 覆盖率）
+- ✅ **优先级机制** - 支持 priority 字段（1-4），AI 快速识别
+- ✅ **自动生成 AGENTS.md** - 支持 Cursor 和 Claude Desktop
+- ⚠️ 不兼容 v1.x
+
+详见 [CHANGELOG.md](CHANGELOG.md)
 
 ---
 
 ## 📄 许可证
 
-本项目采用 [MIT 许可证](./LICENSE)。
+本项目采用 [MIT License](LICENSE)。
+
+## 📊 统计数据
+
+- **Skills**: 31 个（6 个领域，4 个优先级）
+  - Priority 1: 3 个（核心规则）
+  - Priority 2: 4 个（模式规则）
+  - Priority 3: 8 个（代码标准）
+  - Priority 4: 16 个（领域技能）
+- **测试**: 76 个（75% 覆盖率）
+- **代码**: ~5,152 行
+- **文档**: 完善
+- **平台支持**: Cursor IDE、Claude Desktop
 
 ---
 
-## 🤖 AI 生成说明
-
-本工程完全由 AI 全自动生成，包括：
-- ✅ 项目结构和目录组织
-- ✅ 所有源代码和实现
-- ✅ 文档和使用指南
-- ✅ 所有提示词模板和示例
-- ✅ 测试用例和 CI/CD 配置
-
-这展示了 AI 在软件工程领域的强大能力，从项目初始化到完整实现，全部由 AI 自动完成。
-
----
-
-## 📚 相关资源
-
-### 核心文档
-
-- [V2 版本改进计划](./docs/milestones/V2_multi-platform-rules/V2_IMPROVEMENT_PLAN.md) - 三个平台 + 三种组织方式的完整指南 ⭐ **推荐**
-- [快速参考](./docs/guides/QUICK_REFERENCE.md) - 常用命令速查
-- [使用手册](./docs/guides/USAGE_MANUAL.md) - 完整使用指南
-
-### 技能系统文档
-
-- [V1 版本技能系统完整指南](./docs/milestones/V1_SKILL/V1_SKILL_SYSTEM_GUIDE.md) - 技能系统完整指南（整合文档）⭐ **推荐**
-
-### 其他文档
-
-- [快速开始指南](./QUICK_START.md) - 快速开始使用
-- [API 文档](./docs/api/README.md)
-- [示例项目](./examples/README.md)
-- [AI 生成说明](./AI_GENERATED.md) - 了解本项目的 AI 生成过程
-
----
-
-**最后更新**：2025-12-23
+**Made with ❤️ by CJT Team**

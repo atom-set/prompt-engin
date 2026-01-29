@@ -1,0 +1,5 @@
+#!/bin/bash
+# Skill Engine CLI 包装脚本
+# 使用方式: ./skill-engine <command> [options]
+
+python3 -m skill_engine.cli "$@"

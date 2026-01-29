@@ -3,45 +3,39 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "prompt-engine"
-version = "0.2.0"
-description = "A structured prompt engineering tool for organizing, managing, and reusing prompts"
+name = "cjt-skill-engine"
+version = "2.0.0"
+description = "Skills-based AI Skill Engine Framework"
 readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "Prompt Engine Contributors"}
+    {name = "CJT Team"}
 ]
 keywords = [
-    # 核心关键字：提示词（重点突出）
-    "prompt",
-    "prompt-engineering",
-    "prompt-template",
+    # 核心关键字：Skills（重点突出）
+    "skills",
+    "skill-based",
+    "skill-management",
+    "skill-engineering",
     "prompt-management",
-    "prompt-library",
-    "prompt-optimization",
-    "prompt-versioning",
-    "prompt-validation",
-    "prompts",
     # AI 相关
     "ai",
     "ai-assistant",
     "ai-tools",
     "ai-development",
-    "ai-generated",
     "llm",
     "chatgpt",
     "claude",
     "cursor",
-    # 规则相关（辅助）
+    "cursor-ide",
+    # 规则相关
     "rules",
     "rule-engine",
     "rule-management",
-    "cursor-rules",
     # 工程和工具
     "engineering",
-    "template",
-    "template-engine",
+    "modular",
     "developer-tools",
     "software-engineering",
     "automation",
@@ -49,10 +43,9 @@ keywords = [
     "python",
     "cli-tool",
     "markdown",
-    "yaml",
 ]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -60,17 +53,15 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Text Processing",
-    "Topic :: Software Development :: Build Tools",
-    "Topic :: Software Development :: Version Control",
+    "Topic :: Software Development :: Code Generators",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: Utilities",
 ]
 
 dependencies = [
-    "pyyaml>=6.0",
-    "click>=8.0",
+    # 保持依赖简洁
 ]
 
 [project.optional-dependencies]
@@ -84,10 +75,10 @@ dev = [
 ]
 
 [project.scripts]
-prompt-engine = "prompt_engine.cli:main"
+skill-engine = "skill_engine.cli:main"
 
 [tool.setuptools]
-packages = {find = {}}
+packages = {find = {where = ["src"]}}
 package-dir = {"" = "src"}
 
 [tool.black]
@@ -107,7 +98,7 @@ python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
 addopts = [
-    "--cov=src/prompt_engine",
+    "--cov=src/skill_engine",
     "--cov-report=html",
     "--cov-report=term",
 ]

@@ -5,144 +5,236 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-01-29
+
+### ✨ 新增功能
+
+#### 优先级机制
+- ✅ 为所有 skills 添加 `priority` 字段（1-4 级）
+- ✅ 更新 YAML 工具支持 priority 字段解析和验证
+- ✅ 更新 skills_analyzer 优先从 frontmatter 读取 priority
+- ✅ 优先级分类：
+  - Priority 1: 核心规则（3 个）- 必须首先应用
+  - Priority 2: 模式规则（4 个）- 按模式条件应用
+  - Priority 3: 代码标准（8 个）- 编写代码时自动应用
+  - Priority 4: 领域技能（16 个）- 按需加载
+
+#### AGENTS.md 自动生成
+- ✅ 新增 `skill-engine generate` 命令，自动生成 AGENTS.md
+- ✅ 支持 Cursor IDE 和 Claude Desktop 两个平台
+- ✅ 自动包含所有 skills 的优先级信息
+- ✅ 按优先级分组组织 skills 列表
+
+#### 核心规则领域（core/）
+- ✅ 新增 `skills/core/` 目录，包含 15 个核心规则
+- ✅ 核心规则包括：
+  - 工具权限系统（tool-permission-system）
+  - 模式通用规则（mode-common）
+  - 安全权限规则（security-permissions）
+  - 模式规则（plan-mode, act-mode, solution-output, file-write）
+  - 代码标准（code-format, naming, function-design, comments, error-handling-*）
+
+### 🔧 改进
+
+#### Skills 系统
+- ✅ 更新所有 31 个 skills 添加 priority 字段
+- ✅ 更新 SKILL_TEMPLATE.md 包含 priority 字段说明
+- ✅ 更新 skills/README.md 添加优先级机制说明
+- ✅ 验证命令现在显示 priority 字段
+
+#### CLI 工具
+- ✅ 新增 `generate` 命令用于生成 AGENTS.md
+- ✅ 优化验证命令显示 priority 信息
+- ✅ 更新帮助文档
+
+#### 文档
+- ✅ 更新 README.md 反映新功能
+- ✅ 更新技能数量统计（16 → 31 个）
+- ✅ 添加优先级机制说明
+- ✅ 添加 AGENTS.md 生成说明
+- ✅ 添加平台兼容性说明（Cursor + Claude Desktop）
+
+### 🧹 清理
+
+- ✅ 删除 `skills-old/` 旧版本备份目录（396KB）
+- ✅ 删除临时报告文件（6 个）
+- ✅ 清理未使用的代码导入（Dict, List）
+
+### 📊 统计数据更新
+
+- **Skills**: 从 16 个增加到 31 个（新增 15 个核心规则）
+- **领域**: 从 5 个增加到 6 个（新增 core 领域）
+- **平台支持**: Cursor IDE + Claude Desktop
+
+## [2.0.0] - 2026-01-27
+
+### 🚀 重大变更（Breaking Changes）
+
+#### 架构重构
+- **完全移除 Prompts 系统** - 不再支持 prompts 目录和相关功能
+- **统一为 Skills 系统** - 所有规则以 skill 格式组织，共 16 个 skills
+- **不向下兼容** - v1.x 用户需要迁移到 v2.0
+
+#### Skills 转换与领域分层
+- ✅ 已将所有 prompts 规则转换为 skills 格式（16 个）
+- ✅ 采用**领域驱动**的组织方式，按功能领域分类：
+  - `code/` - 代码开发领域（3 个 skills）
+  - `documentation/` - 文档领域（5 个 skills）
+  - `workflow/` - 工作流程领域（5 个 skills）
+  - `interaction/` - 交互领域（2 个 skills）
+  - `project/` - 项目管理领域（1 个 skill）
+- ✅ 更加扁平化的目录结构，只有两层，易于浏览和管理
+- ✅ 每个领域都有独立的 README.md，说明该领域的所有 skills
+- ✅ 所有 skills 都可通过 `openskills` 命令或 `skill-engine` CLI 使用
+
+#### Skills 格式升级
+- ✅ 所有 16 个 skills 已升级为标准格式
+- ✅ 每个 skill 包含：
+  - YAML frontmatter（name、description、tags）
+  - 使用场景说明
+  - 触发条件说明
+  - 与其他规则的配合说明
+  - 完整的规则内容
+- ✅ 创建标准 skill 模板（`skills/SKILL_TEMPLATE.md`）
+
+#### 目录结构重构
+- ✅ 删除 prompts 相关的遗留文件和目录
+- ✅ 简化项目结构，只保留 skills 相关内容
+- ✅ 删除过时的文档和示例
+- ✅ 创建 `backup/` 目录，归档无用和不相关的文件（共 508KB）：
+  - `test-artifacts/` - 测试覆盖率报告（372KB，可重新生成）
+  - `deprecated-scripts/` - 已废弃的脚本（36KB: skills_sync, install_all_skills.sh）
+  - `docs-old/` - 旧版本文档（96KB: docs/, CONTRIBUTING.md）
+  - 添加到 `.gitignore`，不提交到版本控制
+- ✅ 清理过时的 Markdown 文档：
+  - 移除 `docs/` 目录（11 个文件，与 v2.0 不符）
+  - 移除 `CONTRIBUTING.md`（提到旧的命名）
+  - 只保留核心文档：README.md, QUICK_START.md, CHANGELOG.md, AGENTS.md
+- ✅ 将 `.claude/` 目录添加到 `.gitignore`（Cursor IDE 个人配置，不应纳入版本控制）
+- ✅ 将 `.specstory/` 目录添加到 `.gitignore`（AI 聊天历史，7.5MB，不应纳入版本控制）
+- ✅ 清理构建产物：`htmlcov/`、`src/cjt_prompt_engin.egg-info/`
+- ✅ 重新生成包信息：`src/cjt_skill_engine.egg-info/`（名称已更新）
+
+#### 构建工具重构
+- ✅ 重构 skill-engine CLI 工具
+- ✅ 新增功能：
+  - `skill-engine create` - 创建新 skill
+  - `skill-engine validate` - 验证 skill 格式
+  - `skill-engine search` - 搜索 skills（按关键词或标签）
+  - `skill-engine stats` - 显示统计信息
+- ✅ 模块化代码结构：
+  - `commands/` - 命令模块
+  - `utils/` - 工具函数
+- ✅ 完善依赖配置：
+  - `setup.py` 添加 `click>=8.0.0` 和 `pyyaml>=6.0` 依赖
+  - 与 `requirements.txt` 保持一致
+
+#### 测试覆盖提升
+- ✅ 补全单元测试，测试用例从 6 个增加到 76 个
+- ✅ 代码覆盖率从 17% 提升到 75%
+- ✅ 新增测试文件：
+  - `tests/test_cli.py` - CLI 和工具函数测试（22 个测试）
+  - `tests/test_commands.py` - 命令模块测试（16 个测试）
+  - `tests/test_utils.py` - 工具模块测试（38 个测试）
+- ✅ 测试覆盖率详情：
+  - `file_utils.py`: 97% 覆盖率
+  - `yaml_utils.py`: 97% 覆盖率
+  - `list_cmd.py`: 86% 覆盖率
+  - `search_cmd.py`: 92% 覆盖率
+  - `stats_cmd.py`: 95% 覆盖率
+  - `read_cmd.py`: 100% 覆盖率
+  - `cli.py`: 66% 覆盖率
+
+#### 删除的功能
+- ❌ Prompts 提示词系统（整个 `prompts/` 目录）
+- ❌ Prompts 合并功能（`merge_prompts.sh`）
+- ❌ `.cursorrules` 文件生成功能
+- ❌ Prompts 验证功能（`validate_prompts.sh`）
+- ❌ 旧的 CLI 工具（已改为 `skill-engine`）
+- ❌ 规则转换工具（`convert_rule_to_skill.py`）
+
+#### 新增的功能
+- ✅ 重构的 Skills 系统（更清晰、更易用）
+- ✅ 新的 `skill-engine` CLI 工具
+- ✅ 完整的 Skills 文档体系
+- ✅ 简化的项目结构
+
+### 📚 文档更新
+- ✅ 完全重写 README.md（以 Skills 为中心）
+  - 精简冗余内容（384 行 → 197 行）
+  - 补充详细的使用说明和实际场景（302 行）
+  - 补充项目集成和部署说明（462 行 → 437 行）
+  - 采用 **clone + sync** 部署模式（统一管理，按需同步）
+  - 提供完整的团队协作流程和多项目使用方案
+  - 添加典型使用流程和组合使用示例
+- ✅ 完全重写 QUICK_START.md（5 分钟快速开始）
+- ✅ 新增 `scripts/sync.sh` - 自动同步脚本
+  - 复制 `skills/` 目录到目标项目
+  - 复制 `AGENTS.md` 配置文件
+  - 智能检测冲突并提示确认
+  - 显示同步统计信息和后续操作提示
+- 新增 Skills 使用最佳实践
+
+### 🔧 代码重构
+- 重命名 `prompt_engine` → `skill_engine`
+- 简化 CLI 工具，只保留 skills 相关功能
+- 移除所有 prompts 相关代码
+- 删除 `merger.py`、`generator.py`、`parser.py`、`validator.py`
+
+### 📦 配置更新
+- 更新版本号为 2.0.0
+- 更新项目描述为 "Skills-based AI Skill Engine Framework"
+- 简化依赖关系
+
+### 📖 迁移指南
+
+**v1.x 用户请注意**：
+
+1. **不向下兼容** - v2.0 是完全重构的版本
+2. **使用方式变更**：
+   - ❌ 不再使用 `.cursorrules` 文件
+   - ✅ 改用 `openskills` 命令或 `skill-engine` CLI
+3. **规则格式变更** - 所有规则需要以 skill 格式重新组织
+
+**v1.x 用户建议**：
+- 继续使用 v1.x 分支（保持可用）
+- 或者迁移到 v2.0（需要重新学习）
+
+**v2.0 快速开始**：
+```bash
+# 克隆仓库
+git clone https://github.com/your-org/cjt-skill-engine.git
+cd cjt-skill-engine
+
+# 安装依赖
+pip install -r requirements.txt
+pip install -e .
+
+# 使用 skills
+Bash("openskills read <skill-name>")
+```
+
+详见 [QUICK_START.md](QUICK_START.md)
+
+---
+
 ## [Unreleased]
 
 ### Added
-- **批量生成技能脚本**（2025-12-31）：
-  - 创建 `scripts/utils/generate_all_skills.sh`：批量生成所有技能脚本
-  - 功能特性：
-    - 一键批量生成所有 16 个技能，自动从规则文件转换
-    - 支持 `--overwrite` 覆盖模式：强制重新生成所有技能
-    - 支持 `--skip-existing` 跳过模式：默认跳过已存在的技能（默认行为）
-    - 支持 `--quiet` 静默模式：只显示错误和最终统计
-    - 自动处理技能映射关系，无需手动指定规则文件路径
-    - 提供详细的进度显示和统计信息（成功/失败/跳过数量）
-    - 包含完整的错误处理和验证机制
-  - 更新相关文档：
-    - 更新 `docs/milestones/V1_SKILL/SKILLS_CREATION.md`：将批量生成脚本设为最推荐方法
-    - 更新 `docs/milestones/V1_SKILL/V1_SKILL_SYSTEM_GUIDE.md`：添加批量生成脚本说明
-    - 更新 `.claude/skills/README.md`：添加批量生成脚本使用示例
-    - 更新 `dist/skills/README.md`：同步更新技能创建方法
-  - 解决的问题：
-    - 解决技能文件缺失问题：当 `.claude/skills/` 目录中只有空目录时，可以一键重新生成所有技能
-    - 提高技能生成效率：从手动运行 16 次命令减少到一键生成
-    - 减少手动操作错误：自动处理技能映射关系，避免路径错误
-  - 使用示例：
-    ```bash
-    # 生成所有技能（跳过已存在的，默认行为）
-    bash scripts/utils/generate_all_skills.sh
-    
-    # 覆盖所有已存在的技能（强制重新生成）
-    bash scripts/utils/generate_all_skills.sh --overwrite
-    
-    # 静默模式（只显示错误和统计）
-    bash scripts/utils/generate_all_skills.sh --quiet
-    ```
-- **技能产物生成功能**（2025-12-24）：
-  - 在 `scripts/utils/generate_dist.sh` 中添加 `generate_skills()` 函数
-  - 支持将 `.claude/skills/` 目录中的技能复制到 `dist/skills/` 目录
-  - 添加 `--skills` 选项，支持单独生成技能产物
-  - 在 `--all` 模式下自动生成技能产物
-  - 在生成 `single-core` 模式时自动生成技能产物（方式2需要技能）
-  - 更新 `dist/README.md`，添加技能产物使用说明
-  - 技能产物包含 16 个技能，与规则文件产物版本同步
-  - 创建 `scripts/utils/test_skills_generation.sh` 自测脚本，包含 10 个测试用例
-  - 自测脚本覆盖：源目录检查、产物生成、数量一致性、文件完整性、名称一致性、README 复制、模式集成、选项功能、内容完整性、清理功能
-  - 所有测试用例通过率：100%（10/10）
-- **实现 multi-files 模式生成逻辑**（2025-12-24）：
-  - 实现 `generate_dist.sh` 中的 `generate_multi_files()` 函数
-  - 支持 Cursor 平台：生成 `.cursor/rules/` 目录，包含 37 个 `.mdc` 文件，按模块组织
-  - 支持 TRAE 平台：生成 `.trae/ai-rules.yml` YAML 格式规则文件
-  - 支持 Antigravity 平台：生成 `prompt-engine-agent.agent` Agent 配置文件
-  - 优化文件命名：使用基于路径的文件名，更清晰地反映文件模块
-  - 测试验证：所有平台的 multi-files 模式生成和同步功能已验证通过
-- **修复 TRAE 和 Antigravity 文件名问题**（2025-12-24）：
-  - 修复 `generate_dist.sh` 中 TRAE 和 Antigravity 平台的文件名生成逻辑
-  - 处理 CLI 工具自动添加扩展名的问题，确保最终文件名正确
-  - 所有平台产物文件名已验证正确：`.traerules.all`、`.antigravityrules.all` 等
-- **生成所有平台的完整产物**（2025-12-24）：
-  - 成功生成所有平台的三种方式产物：
-    - 单文件完整版：6 个文件（3 个平台 × 2 种方式）
-    - 多文件目录：39 个文件（Cursor: 37 个 .mdc + TRAE: 1 个 .yml + Antigravity: 1 个 .agent）
-  - 总计：45 个产物文件，全部验证通过
-- **环境测试工具和文档完善**（2025-12-24）：
-  - 创建 `scripts/utils/test_environment.sh`：环境测试脚本，自动检查 Python 版本、依赖包、CLI 工具等
-  - 创建 `scripts/utils/test_sync_scripts.sh`：同步脚本测试脚本，自动化测试所有同步相关脚本功能
-  - 创建 `docs/guides/INSTALLATION_AND_TESTING.md`：环境安装和测试指南，包含详细的安装步骤、环境测试方法、常见问题解答
-  - 创建 `docs/guides/USAGE_MANUAL.md`：使用手册文档，详细说明三种使用方式 × 三个平台的完整使用指南
-  - 创建 `docs/guides/QUICK_REFERENCE.md`：快速参考文档，提供常用命令、脚本使用、文件路径等快速查找
-  - 完善 README.md：添加 multi-files 模式使用说明，明确需要先生成产物再同步
-  - 修复提示词文件格式：为所有提示词文件添加缺失的"概述"部分，符合提示词格式规范
-    - 批量处理：使用 `add_overview_section.sh` 脚本处理 23 个文件
-    - 手动修复：修复 20+ 个关键索引文件和文档文件
-    - 最终结果：所有提示词文件格式验证通过（无效：0，总计：0）
+- **创建自定义技能命令说明**（2026-01-20）：
+  - 在 README.md 中添加"创建自定义技能"小节
+  - 提供规则转技能工具的基本命令格式和使用示例
+  - 包含 3 个具体使用示例（文档格式、时间格式、代码组织规范）
+  - 添加参数说明和批量转换方法
+  - 提供验证生成技能的方法
 - **快速使用提示词支持**（2025-12-23）：
-  - 在 README.md 中添加"快速使用提示词（推荐）"章节
-  - 支持直接使用 `@.cursorrules.all` 引用全部规则（完整版）
-  - 支持直接使用 `@.cursorrules.core` 引用核心规则（精简版，Token 优化）
-  - 提供使用示例和适用场景说明
-  - 说明两个文件的区别和选择建议
-
-### Changed
-- **更新 README.md 和修复提示词文件格式**（2025-12-24）：
-  - 更新 README.md 中的"待创建"标记：移除已创建文档的"待创建"标记（USAGE_MANUAL.md、QUICK_REFERENCE.md）
-  - 修复提示词文件格式：为 20+ 个文件添加缺失的"概述"部分，符合提示词格式规范
-  - 使用批量脚本 `add_overview_section.sh` 处理 23 个文件
-  - 手动修复关键索引文件和文档文件
-- **修复分阶段实施规则漏洞**（2025-12-23）：
-  - 同步修复 `prompts/stages/common/mode/act/phase-implementation.md` 中的 4 个漏洞：
-    - 漏洞1：用户说"继续X阶段"的歧义处理 - 明确必须先询问测试
-    - 漏洞2：阶段完成的标准不明确 - 明确阶段完成的判断标准
-    - 漏洞3：子任务和阶段的区别不明确 - 明确"阶段"和"子任务"的定义
-    - 漏洞4：测试询问的时机不够明确 - 明确测试询问的时机和处理方式
-  - 同步新增 `prompts/stages/common/mode/act/phase-implementation-验证报告.md` 验证报告文档
-  - 完善阶段完成后的检查清单，添加强制要求说明
-  - 更新重要原则，禁止跳过测试确认环节（除非用户明确表示）
-- **重点推荐方式2（精简版规则文件 + 技能系统）**（2025-12-20）：
-  - 调整所有文档顺序，将方式2（精简版规则文件 + 技能系统）放在方式1之前
-  - 更新推荐说明，重点推荐方式2，添加星号（⭐）和"重点推荐"标识
-  - 更新选择建议：所有项目（推荐）→ 使用方式2
-  - 更新的文档：
-    - `README.md`：技能系统部分重点推荐方式2
-    - `QUICK_START.md`：调整推荐顺序
-    - `docs/guides/skills-usage-guide.md`：调整推荐说明和顺序
-    - `docs/guides/token-optimization-guide.md`：调整推荐说明和顺序
-    - `docs/guides/QUICK_START_SKILLS.md`：调整推荐说明和顺序
-    - `docs/guides/USAGE_EXAMPLE.md`：调整示例顺序
-  - **推荐理由**：
-    - Token 占用减少约 60%（从 8597 行减少到 3427 行）
-    - 按需加载，灵活配置
-    - 推荐用于所有项目，特别是大项目
-
-### Removed
-- **删除无用文档**（2025-12-20）：
-  - 删除 `docs/guides/user-guide.md`：与 README.md 和 QUICK_START.md 内容重复
-  - 删除 `prompts/OPTIMIZATION_PLAN.md` 和 `prompts/OPTIMIZATION_SUMMARY.md`：优化方案文档已整合
-  - 删除 `TEST_AND_SANITIZATION_REPORT.md`：测试报告文档
-  - 删除临时文件：`combined.md`、`common.md`
-
-### Fixed
-- **修复 --skills 选项参数检查问题**（2025-12-24）：
-  - 修复 `generate_dist.sh` 中 `--skills` 选项的参数检查逻辑
-  - 问题：当只使用 `--skills` 时，脚本会显示帮助信息而不是执行技能生成
-  - 修复：在参数检查条件中添加 `skills_only` 变量检查
-  - 结果：`--skills` 选项现在可以正常工作，可以单独生成技能产物
-- **修复文档引用**（2025-12-20）：
-  - 修复不存在的文档引用：`skill-capability-sync-plan-2025-12-20.md`
-  - 更新所有对 `user-guide.md` 的引用，指向 `QUICK_START.md`
-  - 更新的文件：
-    - `README.md`：更新文档引用
-    - `PROMPTS_OVERVIEW.md`：更新文档引用
-    - `prompts/README.md`：更新文档引用
-    - `docs/examples/todo-cli-vaildation/README.md`：更新文档引用
-    - `PROJECT_SETUP.md`：更新文档引用
-    - `CHANGELOG.md`：更新技能系统实施方案说明
-    - `docs/guides/skills-usage-guide.md`：更新相关文档链接
-    - `docs/guides/QUICK_START_SKILLS.md`：更新相关文档链接
-    - `docs/guides/token-optimization-guide.md`：更新相关文档链接
-    - `docs/guides/SKILLS_CREATION.md`：更新相关文档链接
-
-### Added
+  - 在 README.md 中添加 `.cursorrules.all` 和 `.cursorrules.core` 快速使用说明
+  - 提供两种版本的对比表格（行数、大小、Token 占用、功能完整性等）
+  - 说明两种版本的使用方法和适用场景
+  - 支持直接复制使用或在 Cursor IDE 中通过 `@文件名` 引用
+  - **版本说明**：
+    - `.cursorrules.all`：完整版规则（8597 行，约 328KB），推荐用于新项目
+    - `.cursorrules.core`：核心版规则（3427 行，约 131KB），推荐用于已有项目，Token 占用减少约 60%
 - **技能系统（Skills）支持**（2025-12-20）：
   - 添加技能系统支持，实现 Token 优化和按需加载
   - 创建 `AGENTS.md` 文件：技能列表定义文件
@@ -150,7 +242,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 创建 `scripts/utils/convert_rule_to_skill.py`：规则转技能工具
   - 创建 `docs/guides/token-optimization-guide.md`：Token 优化指南
   - 创建 `docs/guides/skills-usage-guide.md`：技能使用指南
-  - 技能系统实施方案：完整的实施方案已整合到相关指南文档中
+  - 创建 `docs/guides/skill-capability-sync-plan-2025-12-20.md`：完整的实施方案
   - 创建 `docs/guides/SKILLS_CREATION.md`：技能创建指南
   - 创建 `docs/guides/SKILLS_QUICK_REFERENCE.md`：技能系统快速参考
   - 创建 `docs/guides/SKILLS_LIST.md`：技能列表文档
@@ -213,6 +305,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - 删除 `prompts/stages/common/mode/plan/solution-completeness.md`（已整合到 `solution-output.md`）
 
 ### Changed
+- **修复规则漏洞：禁止在同一响应中输出方案后立即调用修改工具**（2025-12-24）：
+  - 修复 `prompts/stages/common/mode/tool-permission-system.md` 中的规则漏洞：
+    - 禁止在同一响应中输出方案后立即调用修改工具
+    - 强化跨响应检查机制，明确要求输出方案后必须等待用户输入 "Act" 指令
+    - 在方案完整性检查中添加强制检查：方案输出和工具调用必须在不同响应中
+  - 修复 `prompts/stages/common/mode/common/mode-common.md` 中的模式切换规则：
+    - 明确默认模式原则：系统默认以Plan模式开始，无Act指令时统一按Plan模式处理
+    - 简化模式判断规则，禁止复杂判断，只需检查是否有"Act"指令
+    - 明确禁止的行为：不能假设用户意图，不能使用其他指令作为切换条件
+  - 更新 `.cursorrules` 文件，同步规则修复
+- **修复分阶段实施规则漏洞**（2025-12-23）：
+  - 修复 `prompts/stages/common/mode/act/phase-implementation.md` 中的 4 个漏洞：
+    - 漏洞1：用户说"继续X阶段"的歧义处理 - 明确必须先询问测试
+    - 漏洞2：阶段完成的标准不明确 - 明确阶段完成的判断标准
+    - 漏洞3：子任务和阶段的区别不明确 - 明确"阶段"和"子任务"的定义
+    - 漏洞4：测试询问的时机不够明确 - 明确测试询问的时机和处理方式
+  - 新增 `prompts/stages/common/mode/act/phase-implementation-验证报告.md` 验证报告文档
+  - 完善阶段完成后的检查清单，添加强制要求说明
+  - 更新重要原则，禁止跳过测试确认环节（除非用户明确表示）
 - **完善意图识别机制**（2025-12-19）：
   - 重构 `prompts/stages/common/mode/tool-permission-system.md`：完善意图识别失败时的安全机制
     - 将意图识别整合为检查流程第零步（在工具分类判断之前）
@@ -315,6 +426,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 删除 `prompts/stages/common/mode/act/long-text-check.md`（已整合到 `file-write.md`）
 
 ### Fixed
+- 修复 `scripts/sync.sh` 脚本大小写兼容性问题（2026-01-29）：
+  - 修复用户输入 "Y"（大写）时无法正确识别为确认的问题
+  - 使用 `tr` 命令替代 `${response,,}` 语法，提升 macOS bash 兼容性
+  - 现在支持 "y" 和 "Y" 两种输入方式
 - 修复 `prompts/stages/common/mode/common/mode-common.md` 缺少概述部分的验证问题
 - 添加概述部分，使文件符合提示词格式规范
 
@@ -326,7 +441,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - 添加隐藏的同步工具 `.sync_from_cursor_rules.py`，支持从 cursor-rules 仓库同步提示词
 - CLI 工具新增 `--all` 选项，支持合并所有提示词文件
-- 创建包装脚本 `scripts/prompt-engine`，无需安装即可使用 CLI 工具
+- 创建包装脚本 `scripts/skill-engine`，无需安装即可使用 CLI 工具
 - 添加 `QUICK_START.md` 快速开始指南
 - 添加 `AI_GENERATED.md` AI 生成说明文档
 - 添加 `PROJECT_SETUP.md` 项目初始化总结文档
