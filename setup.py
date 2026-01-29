@@ -13,7 +13,7 @@ setup(
     description="Skills-based AI Skill Engine Framework",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author="Development Team",
+    author="Your Team",
     license="MIT",
     python_requires=">=3.8",
     packages=find_packages(where="src"),

@@ -5,5 +5,5 @@ Skill Engine
 """
 
 __version__ = "2.0.0"
-__author__ = "Development Team"
+__author__ = "Your Team"
 __description__ = "Skills-based AI Skill Engine Framework"

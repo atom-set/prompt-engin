@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "Development Team"}
+    {name = "Your Team"}
 ]
 keywords = [
     # 核心关键字：Skills（重点突出）

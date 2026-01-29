@@ -154,6 +154,6 @@ chmod +x skill-engine
 
 确保在项目根目录下运行，或使用绝对路径：
 ```bash
-cd /path/to/prompt-engin
+cd /path/to/your-project
 python3 -m skill_engine.cli analyze
 ```

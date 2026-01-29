@@ -2,7 +2,7 @@
 
 > 基于 Skills 的 AI 提示词工程框架 v2.0
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/your-org/skill-engine)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/your-org/your-repo)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/)
 [![Tests](https://img.shields.io/badge/tests-76%20passed-brightgreen.svg)]()
@@ -39,7 +39,7 @@
 
 ```bash
 # 克隆到本地目录（一次性操作）
-git clone https://github.com/your-org/skill-engine ~/skill-engine
+git clone https://github.com/your-org/your-repo ~/skill-engine
 ```
 
 #### 步骤 2：同步 skills 到项目
@@ -333,8 +333,8 @@ skill-engine manage all              # 完整报告
 
 ```bash
 # 克隆仓库
-git clone https://github.com/your-org/skill-engine
-cd prompt-engin
+git clone https://github.com/your-org/your-repo
+cd your-project
 
 # 安装依赖
 pip install -r requirements.txt
@@ -562,4 +562,4 @@ skill-engine/
 
 ---
 
-**Made with ❤️ by Development Team**
+**Made with ❤️ by Your Team**

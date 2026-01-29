@@ -203,7 +203,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 **v2.0 快速开始**：
 ```bash
 # 克隆仓库
-git clone https://github.com/your-org/skill-engine.git
+git clone https://github.com/your-org/your-repo.git
 cd skill-engine
 
 # 安装依赖

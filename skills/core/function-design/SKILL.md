@@ -221,7 +221,7 @@ function createUser({ firstName, lastName, email, phone, address }) {
 createUser({
   firstName: 'John',
   lastName: 'Doe',
-  email: 'john@example.com',
+  email: 'user@example.com',
   phone: '1234567890',
   address: '123 Main St'
 });
