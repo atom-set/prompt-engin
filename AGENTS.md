@@ -1,21 +1,32 @@
-
 <skills_system priority="1">
+
+## 规则来源：全部通过 Skill 加载
+
+所有行为规范均来自 `.claude/skills/` 下的 Skill 文件，不在此处重复写死。**对话开始时或收到可能涉及改代码/执行操作的需求时，请先用 Read 工具读取并应用下方「必须先加载」的 core skill 文件，再回复或执行。**
 
 ## Available Skills
 
 <!-- SKILLS_TABLE_START -->
 <usage>
-When users ask you to perform tasks, check if any of the available skills below can help complete the task more effectively. Skills provide specialized capabilities and domain knowledge.
-
-How to use skills:
-- Invoke: Bash("openskills read <skill-name>")
-- The skill content will load with detailed instructions on how to complete the task
-- Base directory provided in output for resolving bundled resources (references/, scripts/, assets/)
+**如何加载 Skill（必须通过读文件，不要依赖 Bash openskills）：**
+- Skill 内容所在路径：`.claude/skills/core/<location>/SKILL.md`，其中 `<location>` 为下面各 &lt;skill&gt; 的 location 字段（如 plan-mode、act-mode、mode-common）。
+- **加载方式**：使用 Read 工具读取上述路径文件内容，读入后即视为该 Skill 已应用，须严格遵守其中的规范。
+- **涉及代码修改或模式判断时，必须先加载并应用以下核心 Skill**（按顺序读取并应用）：
+  1. `.claude/skills/core/mode-common/SKILL.md` — 模式切换、响应格式、语言要求
+  2. `.claude/skills/core/tool-permission-system/SKILL.md` — 工具权限系统（**必须**在工具调用前加载，包含意图识别和方案输出检查机制）
+  3. `.claude/skills/core/security-permissions/SKILL.md` — 安全权限规则
+  4. `.claude/skills/core/plan-mode/SKILL.md` — Plan 模式允许/禁止操作
+  5. `.claude/skills/core/act-mode/SKILL.md` — Act 模式执行与确认
+  6. `.claude/skills/core/solution-output/SKILL.md` — 方案输出机制（**必须**在代码修改需求时加载）
+- **重要说明**：
+  - **代码修改需求处理流程**：收到代码修改需求时，必须先输出完整方案（5个部分），禁止先调用只读工具（如 read_file、codebase_search）再输出方案
+  - **工具调用前检查**：每次工具调用前必须执行 `tool-permission-system` 定义的检查流程（意图识别 → 工具分类 → 权限检查 → 方案完整性检查）
+- 编写代码时，按需加载 code-format、naming、function-design、comments 等 &lt;available_skills&gt; 中列出的技能路径：`.claude/skills/core/<location>/SKILL.md`
 
 Usage notes:
-- Only use skills listed in <available_skills> below
-- Do not invoke a skill that is already loaded in your context
-- Each skill invocation is stateless
+- 只应用 &lt;available_skills&gt; 中列出的 skills，通过读文件加载，不要使用 Bash("openskills read ...")
+- 同一 skill 若已在本轮对话中读入并应用，无需重复读取
+- 所有规则以 Skill 文件为准，此处不重复条文
 
 Priority and application order:
 1. **Core skills (Priority 1)** - Automatically applied first. These are the foundation rules that must be applied first:

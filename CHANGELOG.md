@@ -220,6 +220,15 @@ Bash("openskills read <skill-name>")
 
 ## [Unreleased]
 
+### Changed
+- **同步 AGENTS.md 更新**（2026-01-29）：
+  - 同步源项目 AGENTS.md 的改动到当前工程
+  - 添加"规则来源：全部通过 Skill 加载"说明
+  - 更新 Skill 加载说明，明确通过 Read 工具读取文件，不使用 Bash openskills
+  - 添加核心 Skill 加载顺序说明（6 个必须按顺序加载的核心 Skill）
+  - 添加代码修改需求处理流程说明（必须先输出完整方案）
+  - 添加工具调用前检查说明（意图识别 → 工具分类 → 权限检查 → 方案完整性检查）
+
 ### Added
 - **创建自定义技能命令说明**（2026-01-20）：
   - 在 README.md 中添加"创建自定义技能"小节
